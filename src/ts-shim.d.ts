@@ -1,0 +1,7 @@
+declare module '*.vue'
+declare module '*.css'
+declare module '*.styl'
+declare module '*.png'
+declare module '*.jpg'
+declare module '*.jpeg'
+declare module '*.gif'

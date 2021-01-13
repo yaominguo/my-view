@@ -1,0 +1,90 @@
+<template>
+  <span ref="countRef" />
+</template>
+
+<script lang="ts">
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { CountUp, CountUpOptions } from 'countup.js'
+
+export default defineComponent({
+  name: 'MyCount',
+  displayName: 'm-count',
+  props: {
+    value: {
+      type: [Number, String],
+      default: 0,
+    },
+    /** 保留几位小数，默认为0 */
+    decimal: {
+      type: [Number, String],
+      default: 0,
+    },
+    /** 数字跳动速度 默认为2 */
+    speed: {
+      type: [Number, String],
+      default: 2,
+    },
+    /** 是否隔一段时间自动跳动 默认为false */
+    autoPlay: {
+      type: Boolean,
+      default: false,
+    },
+    /** autoPlay开启后的间隔时间设置 默认为10 */
+    duration: {
+      type: [Number, String],
+      default: 10,
+    },
+  },
+  setup(props) {
+    const { value, decimal, speed, autoPlay, duration } = props
+    const endValue = ref(+value)
+    const countRef = ref<null | HTMLElement>(null)
+    const countUpInstance = ref<any>(null)
+    const timer = ref<null | Number>(null)
+    const options: CountUpOptions = {
+      decimalPlaces: +decimal,
+      duration: +speed,
+    }
+    onMounted(() => {
+      const countUp = new CountUp(
+        countRef.value as HTMLElement,
+        endValue.value,
+        options
+      )
+      if (!countUp.error) {
+        countUp.start()
+      } else {
+        console.error(`m-count error: ${countUp.error}`)
+      }
+      countUpInstance.value = countUp
+      if (autoPlay) {
+        timer.value = setInterval(() => {
+          countUp.reset()
+          countUp.update(endValue.value)
+        }, +duration * 1000)
+      }
+    })
+    watch(
+      () => props.value,
+      (cur, past) => {
+        endValue.value = +cur
+        if (
+          countUpInstance.value &&
+          typeof countUpInstance.value.update === 'function'
+        )
+          countUpInstance.value.update(+cur)
+      }
+    )
+    onBeforeUnmount(() => {
+      clearInterval(Number(timer.value))
+      timer.value = null
+      countUpInstance.value = null
+    })
+    return {
+      countRef,
+      countUpInstance,
+      endValue,
+    }
+  },
+})
+</script>
