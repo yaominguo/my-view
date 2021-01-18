@@ -6,13 +6,17 @@
     rows="1fr 1fr"
   >
     <m-card area="box1" title="哈哈哈哈">
-      <m-count class="count" :value="value" auto-play></m-count>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam iure
-        dignissimos soluta itaque a pariatur harum cumque? Quisquam, neque
-        consectetur totam distinctio quaerat adipisci facilis maiores excepturi
-        repudiandae commodi ipsa.
-      </p>
+      <m-scroll :length="30" :limit="10">
+        <div v-for="i in 30" :key="i" style="width: 100%; height: 0.5rem">
+          <m-count class="count" :value="value" />
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam iure
+            dignissimos soluta itaque a pariatur harum cumque? Quisquam, neque
+            consectetur totam distinctio quaerat adipisci facilis maiores
+            excepturi repudiandae commodi ipsa.
+          </p>
+        </div>
+      </m-scroll>
     </m-card>
     <div class="box2" area="box2"></div>
     <m-card
@@ -37,6 +41,7 @@ export default defineComponent({
   setup() {
     const test = ref(false)
     const value = ref(0)
+    const showModal = ref(false)
     setTimeout(() => {
       test.value = true
       value.value = 9893939
@@ -44,6 +49,7 @@ export default defineComponent({
     return {
       test,
       value,
+      showModal,
     }
   },
 })
@@ -52,18 +58,18 @@ export default defineComponent({
 <style lang="stylus">
 html, body
   background rgba(0,0,0,0.5)
-  width 100%
-  height 100%
-  user-select none
-  font-size 16vh
-#app
   font-family Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   width 100%
   height 100%
-  overflow hidden
-  font-size .1rem
+  user-select none
+  font-size 16vh
   line-height 1.5
   color #fff
+#app
+  width 100%
+  height 100%
+  overflow hidden
+  font-size .1rem
 </style>

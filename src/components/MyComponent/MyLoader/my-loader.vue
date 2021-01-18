@@ -1,18 +1,24 @@
 <template>
-  <div class="my-loader-mask">
-    <div class="my-loader">
-      <div class="outer"></div>
-      <div class="middle"></div>
-      <div class="inner"></div>
+  <teleport to="#MyLoader">
+    <div class="my-loader-mask">
+      <div class="my-loader">
+        <div class="outer"></div>
+        <div class="middle"></div>
+        <div class="inner"></div>
+      </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import useDOMCreate from '@/hooks/useDOMCreate'
 export default defineComponent({
   name: 'MyLoader',
   displayName: 'm-loader',
+  setup() {
+    useDOMCreate('MyLoader')
+  },
 })
 </script>
 
