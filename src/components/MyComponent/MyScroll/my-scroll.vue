@@ -36,6 +36,10 @@ export default defineComponent({
       type: Number,
       default: 4000,
     },
+    speed: {
+      type: Number,
+      default: 50,
+    },
     mode: {
       type: [Number, String],
       default: 1,
@@ -45,7 +49,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { length, limit, mode, duration, step } = props
+    const { length, limit, mode, duration, step, speed } = props
     const contentRef = ref<null | HTMLElement>(null)
     const mockContentRef = ref<null | HTMLElement>(null)
     const timer = ref<null | Number>(null)
@@ -82,7 +86,7 @@ export default defineComponent({
         content.style.transform = `translateY(${-index.value}px)`
         mockContent &&
           (mockContent.style.transform = `translateY(${-index.value}px)`)
-      }, 50)
+      }, speed)
     }
     const startMode2 = () => {
       if (!step) {

@@ -1,22 +1,13 @@
 <template>
   <m-grid
     class="grid-aaa"
-    :template="['box1 box1 box3', 'box2 box2 box3']"
+    :template="['title title title', 'box1 box1 box3', 'box2 box2 box3']"
     columns="1fr 1fr 1fr"
-    rows="1fr 1fr"
+    rows="0.4rem 1fr 1fr"
   >
+    <m-title area="title">XXXXXXX数据平台</m-title>
     <m-card area="box1" title="哈哈哈哈">
-      <m-scroll :length="30" :limit="10">
-        <div v-for="i in 30" :key="i" style="width: 100%; height: 0.5rem">
-          <m-count class="count" :value="value" />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam iure
-            dignissimos soluta itaque a pariatur harum cumque? Quisquam, neque
-            consectetur totam distinctio quaerat adipisci facilis maiores
-            excepturi repudiandae commodi ipsa.
-          </p>
-        </div>
-      </m-scroll>
+      <TestComponent />
     </m-card>
     <div class="box2" area="box2"></div>
     <m-card
@@ -26,30 +17,60 @@
       leave="fadeOutRight"
       v-show="test"
     >
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem sed natus
-      vero adipisci similique provident praesentium itaque minus accusantium
-      eligendi, quas harum perspiciatis excepturi odio porro suscipit aut quo
-      autem.
+      <m-table
+        :template="[
+          '标题1|标题2|标题3',
+          'key1|key2>customFormatter|key3#image',
+        ]"
+        :data="tableData"
+        :formatter="{ customFormatter }"
+      />
     </m-card>
   </m-grid>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import TestComponent from './test-component.vue'
 export default defineComponent({
   name: 'App',
+  components: { TestComponent },
   setup() {
     const test = ref(false)
-    const value = ref(0)
-    const showModal = ref(false)
     setTimeout(() => {
       test.value = true
-      value.value = 9893939
+      tableData.value = [
+        {
+          key1: 'key1',
+          key2: 'key2',
+          key3: 'https://avatars2.githubusercontent.com/u/43328103?v=4',
+        },
+        {
+          key1: 'key1',
+          key2: 'key2',
+          key3: 'https://avatars2.githubusercontent.com/u/43328103?v=4',
+        },
+        {
+          key1: 'key1',
+          key2: 'key2',
+          key3: 'https://avatars2.githubusercontent.com/u/43328103?v=4',
+        },
+        {
+          key1: 'key1',
+          key2: 'key2',
+          key3: 'https://avatars2.githubusercontent.com/u/43328103?v=4',
+        },
+      ]
     }, 3000)
+
+    const customFormatter = (val: string) => {
+      return val + '哈哈哈'
+    }
+    const tableData = ref<Object>([])
     return {
       test,
-      value,
-      showModal,
+      tableData,
+      customFormatter,
     }
   },
 })
@@ -72,4 +93,18 @@ html, body
   height 100%
   overflow hidden
   font-size .1rem
+  background url('./assets/images/background.jpg') center/cover no-repeat
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+  width: .05rem;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  background:rgba(91, 213, 255, 0.5)
+  -webkit-box-shadow:inset006pxrgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background:rgba(91, 213, 255, 0.5)
+}
 </style>

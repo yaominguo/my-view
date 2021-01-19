@@ -53,6 +53,7 @@ export default defineComponent({
         'grid-template-rows': rows,
         'grid-gap': gap,
         padding: gap,
+        'padding-top': 0,
       }
     })
     return {

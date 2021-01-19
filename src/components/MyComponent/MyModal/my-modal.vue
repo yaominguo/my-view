@@ -1,7 +1,11 @@
 <template>
-  <teleport to="#MyModal">
+  <teleport to="body">
     <m-animate :enter="enter" :leave="leave">
-      <div v-if="modelValue" class="my-modal-mask">
+      <div
+        v-if="modelValue"
+        class="my-modal-mask"
+        style="animation-duration: 300ms"
+      >
         <div
           class="my-modal"
           :style="`width:${width};transform: translateX(${offset})`"
@@ -42,7 +46,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import useDOMCreate from '@/hooks/useDOMCreate'
 
 export default defineComponent({
   name: 'MyModal',
@@ -75,7 +78,6 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'close'],
   setup(props, context) {
-    useDOMCreate('MyModal')
     const closeModal = () => {
       context.emit('update:modelValue', false)
       context.emit('close')
@@ -99,7 +101,6 @@ export default defineComponent({
   z-index 9999
   $center()
   .my-modal
-    animation-duration 100ms
     background rgba(0,0,0,0.1)
     color #fff
     $blur()

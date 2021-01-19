@@ -11,4 +11,7 @@ export default defineConfig({
     base: './',
     assetsDir: './assets',
   },
+  optimizeDeps: {
+    include: ['moment/locale/zh-cn'],
+  },
 })
