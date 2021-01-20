@@ -10,6 +10,7 @@ import MyModal from './MyModal/my-modal.vue'
 import MyScroll from './MyScroll/my-scroll.vue'
 import MyForm from './MyForm/my-form.vue'
 import MyTable from './MyTable/my-table.vue'
+import MyStep from './MyStep/my-step.vue'
 import { withInstall } from './util'
 
 const components = [
@@ -23,6 +24,7 @@ const components = [
   MyScroll,
   MyForm,
   MyTable,
+  MyStep,
 ]
 
 const install = (app: App): App => {
@@ -44,6 +46,7 @@ export {
   MyScroll,
   MyForm,
   MyTable,
+  MyStep,
 }
 
 // 默认导出 —— 使用import MyComponent from './components/MyComponent'来引入所有组件
