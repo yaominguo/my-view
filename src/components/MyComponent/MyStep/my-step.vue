@@ -116,7 +116,7 @@ export default defineComponent({
       width .06rem
       height @width
       border .02rem solid $edge
-      background #000
+      background rgba(0,0,0,0.8)
       border-radius 50%
     .msg
       display inline-block

@@ -6,6 +6,7 @@
     rows="0.4rem 1fr 1fr"
   >
     <m-title area="title">XXXXXXX数据平台</m-title>
+    <m-loader v-if="show" />
     <m-card area="box1" title="哈哈哈哈">
       <TestComponent />
     </m-card>
@@ -30,12 +31,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import TestComponent from './test-component.vue'
+import store from '@/store'
 export default defineComponent({
   name: 'App',
   components: { TestComponent },
-  setup() {
+  setup(props, ctx) {
+    const show = computed(() => store.state.showLoading)
     const test = ref(false)
     setTimeout(() => {
       test.value = true
@@ -71,6 +74,7 @@ export default defineComponent({
       test,
       tableData,
       customFormatter,
+      show,
     }
   },
 })
@@ -93,7 +97,7 @@ html, body
   height 100%
   overflow hidden
   font-size .1rem
-  background url('./assets/images/background.jpg') center/cover no-repeat
+  background url('/src/assets/images/background.jpg') center/cover no-repeat
 
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {

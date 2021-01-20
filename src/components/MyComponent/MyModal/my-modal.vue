@@ -5,6 +5,11 @@
         v-if="modelValue"
         class="my-modal-mask"
         style="animation-duration: 300ms"
+        @click.prevent.self="
+          () => {
+            maskClosable ? closeModal() : null
+          }
+        "
       >
         <div
           class="my-modal"
@@ -75,6 +80,10 @@ export default defineComponent({
       type: String,
       default: '0',
     },
+    maskClosable: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ['update:modelValue', 'close'],
   setup(props, context) {
@@ -104,6 +113,7 @@ export default defineComponent({
     background rgba(0,0,0,0.1)
     color #fff
     $blur()
+    z-index 99999
     head
       position relative
       height .4rem

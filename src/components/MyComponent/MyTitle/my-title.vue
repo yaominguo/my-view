@@ -1,6 +1,6 @@
 <template>
   <div class="my-title">
-    <img :src="bgImg" class="bg" />
+    <img src="/src/assets/images/title-bg.png" class="bg" />
     <div class="date">{{ date }} {{ time }}</div>
     <h1><slot /></h1>
   </div>
@@ -13,12 +13,6 @@ import { getDate, getTime } from '../util'
 export default defineComponent({
   name: 'MyTitle',
   displayName: 'm-title',
-  props: {
-    bgImg: {
-      type: String,
-      default: '/src/assets/images/title-bg.png',
-    },
-  },
   setup() {
     const date = ref(getDate())
     const time = ref('')
