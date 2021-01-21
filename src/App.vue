@@ -10,7 +10,9 @@
     <m-card area="box1" title="哈哈哈哈">
       <TestComponent />
     </m-card>
-    <div class="box2" area="box2"></div>
+    <m-card area="box2" title="哈哈哈">
+      <TsxComponent></TsxComponent>
+    </m-card>
     <m-card
       area="box3"
       title="测试测试"
@@ -33,10 +35,11 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
 import TestComponent from './test-component.vue'
+import TsxComponent from './tsx-component'
 import store from '@/store'
 export default defineComponent({
   name: 'App',
-  components: { TestComponent },
+  components: { TestComponent, TsxComponent },
   setup(props, ctx) {
     const show = computed(() => store.state.showLoading)
     const test = ref(false)
