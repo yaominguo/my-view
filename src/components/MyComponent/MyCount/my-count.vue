@@ -36,14 +36,13 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { value, decimal, speed, autoPlay, duration } = props
-    const endValue = ref(+value)
+    const endValue = ref(+props.value)
     const countRef = ref<null | HTMLElement>(null)
     const countUpInstance = ref<any>(null)
-    const timer = ref<null | Number>(null)
+    const timer = ref<null | number>(null)
     const options: CountUpOptions = {
-      decimalPlaces: +decimal,
-      duration: +speed,
+      decimalPlaces: +props.decimal,
+      duration: +props.speed,
     }
     onMounted(() => {
       const countUp = new CountUp(
@@ -57,16 +56,16 @@ export default defineComponent({
         console.error(`m-count error: ${countUp.error}`)
       }
       countUpInstance.value = countUp
-      if (autoPlay) {
+      if (props.autoPlay) {
         timer.value = setInterval(() => {
           countUp.reset()
           countUp.update(endValue.value)
-        }, +duration * 1000)
+        }, +props.duration * 1000)
       }
     })
     watch(
       () => props.value,
-      (cur, past) => {
+      (cur) => {
         endValue.value = +cur
         if (
           countUpInstance.value &&

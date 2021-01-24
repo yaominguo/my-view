@@ -13,7 +13,9 @@
       class="item"
       :class="{ on: i == current }"
     >
-      <p :title="step">{{ step }}</p>
+      <p :title="step">
+        {{ step }}
+      </p>
       <div v-if="i <= current" ref="iconRef" class="icon" />
       <div v-else class="none"></div>
       <span class="msg" :title="msg[i]" v-html="msg[i]" />
@@ -36,7 +38,7 @@ export default defineComponent({
   displayName: 'm-step',
   props: {
     steps: {
-      type: Array as PropType<String[]>,
+      type: Array as PropType<string[]>,
       required: true,
     },
     current: {
@@ -44,24 +46,23 @@ export default defineComponent({
       default: 0,
     },
     msg: {
-      type: Array as PropType<String[]>,
+      type: Array as PropType<string[]>,
       default: () => [],
     },
   },
   setup(props) {
-    const { steps, current } = props
     const iconRef = ref<null | HTMLElement>(null)
     const linePercent = computed(() => {
-      const { length } = steps
+      const { length } = props.steps
       if (length > 2) return 100 / (length - 1)
       return 100
     })
     const doneWidth = computed(() => {
-      if (Number.isNaN(+current)) {
+      if (Number.isNaN(+props.current)) {
         console.error('MyStep组件传入的current参数是NaN!')
         return 0
       }
-      return Math.round(linePercent.value * +current)
+      return Math.round(linePercent.value * +props.current)
     })
     const undoneWidth = computed(() => 100 - doneWidth.value)
     const iconTop = ref(0)

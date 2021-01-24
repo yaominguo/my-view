@@ -3,15 +3,27 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['plugin:vue/essential', 'standard', 'plugin:prettier/recommended'],
+  extends: [
+    'plugin:vue/vue3-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
+  ],
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    ecmaVersion: 12,
+    ecmaVersion: 2020,
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
   plugins: ['vue', '@typescript-eslint'],
   rules: {
     'vue/no-multiple-template-root': 'off',
+    'vue/max-attributes-per-line': 'off',
+    'vue/html-self-closing': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0, // 生产环境禁止debugger
     'no-console': process.env.NODE_ENV === 'production' ? 2 : 0, // 生产环境禁止console
     'no-alert': process.env.NODE_ENV === 'production' ? 2 : 0, // 生产环境禁止alert

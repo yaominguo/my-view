@@ -5,7 +5,6 @@ import actions from './actions'
 
 export interface GlobalStateProps {
   showLoading: boolean
-  aaa: string
 }
 export default createStore<GlobalStateProps>({
   state,

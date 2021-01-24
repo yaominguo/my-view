@@ -25,15 +25,15 @@
         >
           <p
             v-if="key.indexOf('>') >= 0"
-            v-html="transValue(item, key)"
             :style="`text-align:${calcAlign[i]}`"
+            v-html="transValue(item, key)"
           />
           <img
             v-else-if="key.indexOf('#') >= 0 && key.split('#')[1] === 'image'"
-            @click.stop="handleViewImage(item[key.split('#')[0]])"
             :src="item[key.split('#')[0]]"
+            @click.stop="handleViewImage(item[key.split('#')[0]])"
           />
-          <p v-else v-html="item[key]" :style="`text-align:${calcAlign[i]}`" />
+          <p v-else :style="`text-align:${calcAlign[i]}`" v-html="item[key]" />
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@ export default defineComponent({
   displayName: 'm-table',
   props: {
     template: {
-      type: Array as PropType<String[]>,
+      type: Array as PropType<string[]>,
       required: true,
     },
     data: {
@@ -67,7 +67,6 @@ export default defineComponent({
     },
     formatter: {
       type: Object as PropType<FormatterType>,
-      default: () => {},
     },
     selectable: {
       type: Boolean,
@@ -85,7 +84,10 @@ export default defineComponent({
     })
     const dataSource = computed(() => props.data)
     const transValue = (item: dataType, key: string) => {
-      return props.formatter[key.split('>')[1]](item[key.split('>')[0]])
+      return (
+        props.formatter &&
+        props.formatter[key.split('>')[1]](item[key.split('>')[0]])
+      )
     }
     const handleClick = (data: dataType) => {
       if (props.selectable) ctx.emit('select', data)

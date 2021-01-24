@@ -28,10 +28,10 @@
                 class="flag"
               />
               <img
-                @click.prevent="closeModal"
                 src="/src/assets/images/close-btn.png"
                 draggable="false"
                 class="close-btn"
+                @click.prevent="closeModal"
               />
             </div>
             <img

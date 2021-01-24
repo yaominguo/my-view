@@ -46,18 +46,20 @@ export default defineComponent({
     },
     step: {
       type: Number,
+      default: 0,
     },
   },
   setup(props) {
-    const { length, limit, mode, duration, step, speed } = props
     const contentRef = ref<null | HTMLElement>(null)
     const mockContentRef = ref<null | HTMLElement>(null)
-    const timer = ref<null | Number>(null)
+    const timer = ref<null | number>(null)
     const index = ref(0)
-    const isNeedMockContent = computed(() => length <= 100 && length >= limit)
+    const isNeedMockContent = computed(
+      () => props.length <= 100 && props.length >= props.limit
+    )
     const start = () => {
-      if (length < limit) return
-      if (+mode === 2) {
+      if (props.length < props.limit) return
+      if (+props.mode === 2) {
         startMode2()
       } else {
         startMode1()
@@ -86,10 +88,10 @@ export default defineComponent({
         content.style.transform = `translateY(${-index.value}px)`
         mockContent &&
           (mockContent.style.transform = `translateY(${-index.value}px)`)
-      }, speed)
+      }, props.speed)
     }
     const startMode2 = () => {
-      if (!step) {
+      if (!props.step) {
         console.error('MyScroll mode2模式需要step参数！')
         return
       }
@@ -108,12 +110,12 @@ export default defineComponent({
           content.style.transition = 'none'
           mockContent && (mockContent.style.transition = 'none')
         }
-        content.style.transform = `translateY(${-step * index.value}rem)`
+        content.style.transform = `translateY(${-props.step * index.value}rem)`
         mockContent &&
           (mockContent.style.transform = `translateY(${
-            -step * index.value
+            -props.step * index.value
           }rem)`)
-      }, duration)
+      }, props.duration)
     }
     onMounted(() => {
       start()

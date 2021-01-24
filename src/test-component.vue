@@ -2,10 +2,10 @@
   <div class="test-component">
     <m-scroll :length="30" :limit="10" mode="2" :step="0.8">
       <div
-        @click="handleClick"
         v-for="i in 30"
         :key="i"
         style="width: 100%; height: 0.8rem"
+        @click="handleClick"
       >
         <m-count class="count" :value="countValue" />
         <m-step

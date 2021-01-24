@@ -1,5 +1,5 @@
 <template>
-  <div class="my-grid" :style="style" ref="gridRef">
+  <div ref="gridRef" class="my-grid" :style="style">
     <slot />
   </div>
 </template>
@@ -12,7 +12,7 @@ export default defineComponent({
   displayName: 'm-grid',
   props: {
     template: {
-      type: Array as PropType<String[]>,
+      type: Array as PropType<string[]>,
       required: true,
     },
     columns: {

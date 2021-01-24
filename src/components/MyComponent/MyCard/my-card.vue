@@ -37,9 +37,9 @@ export default defineComponent({
       default: 'fadeOutLeft',
     },
   },
-  setup({ mode }) {
+  setup(props) {
     const card = computed(() => {
-      switch (mode) {
+      switch (props.mode) {
         case '1':
           return mode1
         default:

@@ -14,11 +14,11 @@
       <TsxComponent></TsxComponent>
     </m-card>
     <m-card
+      v-show="test"
       area="box3"
       title="测试测试"
       enter="fadeInRight"
       leave="fadeOutRight"
-      v-show="test"
     >
       <m-table
         :template="[
@@ -40,7 +40,7 @@ import store from '@/store'
 export default defineComponent({
   name: 'App',
   components: { TestComponent, TsxComponent },
-  setup(props, ctx) {
+  setup() {
     const show = computed(() => store.state.showLoading)
     const test = ref(false)
     setTimeout(() => {
@@ -72,7 +72,7 @@ export default defineComponent({
     const customFormatter = (val: string) => {
       return val + '哈哈哈'
     }
-    const tableData = ref<Object>([])
+    const tableData = ref([])
     return {
       test,
       tableData,

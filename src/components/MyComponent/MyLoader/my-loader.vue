@@ -2,9 +2,9 @@
   <teleport to="#MyLoader">
     <div class="my-loader-mask">
       <div class="my-loader">
-        <div class="outer"></div>
-        <div class="middle"></div>
-        <div class="inner"></div>
+        <div class="outer" />
+        <div class="middle" />
+        <div class="inner" />
       </div>
     </div>
   </teleport>
