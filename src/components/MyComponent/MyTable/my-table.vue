@@ -67,6 +67,7 @@ export default defineComponent({
     },
     formatter: {
       type: Object as PropType<FormatterType>,
+      default: null,
     },
     selectable: {
       type: Boolean,

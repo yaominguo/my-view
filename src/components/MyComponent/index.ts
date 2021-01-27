@@ -1,5 +1,6 @@
 import { App } from 'vue'
 import animate from 'animate.css'
+import MyMap from './MyMap/my-map.vue'
 import MyTitle from './MyTitle/my-title.vue'
 import MyLoader from './MyLoader/my-loader.vue'
 import MyAnimate from './MyAnimate/my-animate.vue'
@@ -14,6 +15,7 @@ import MyStep from './MyStep/my-step.vue'
 import { withInstall } from './util'
 
 const components = [
+  MyMap,
   MyTitle,
   MyAnimate,
   MyGrid,
@@ -36,6 +38,7 @@ const install = (app: App): App => {
 // 使用import {MyGrid} from './components/MyComponent'来按需引入个别组件
 export {
   install,
+  MyMap,
   MyTitle,
   MyAnimate,
   MyGrid,

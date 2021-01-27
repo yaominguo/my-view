@@ -57,16 +57,19 @@ export default defineComponent({
 @import '../main.styl'
 .my-card
   $full()
-  $blur()
   width initial
   height initial
   overflow hidden
+  z-index 10
   :deep(.card-wrapper)
     $full()
-    padding .05rem .1rem
+    // padding .05rem .1rem
     position relative
+  :deep(.card-title)
+    max-height .2rem
   :deep(.card-content)
     height calc(100% - .2rem)
     overflow-y auto
     overflow-x hidden
+    $blur()
 </style>

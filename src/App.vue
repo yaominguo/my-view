@@ -1,18 +1,17 @@
 <template>
   <m-grid
     class="grid-aaa"
-    :template="['title title title', 'box1 box1 box3', 'box2 box2 box3']"
-    columns="1fr 1fr 1fr"
+    :template="['title title title', 'box1 . box3', 'box2 . box3']"
+    columns="1fr 2fr 1fr"
     rows="0.4rem 1fr 1fr"
   >
+    <m-map />
     <m-title area="title">XXXXXXX数据平台</m-title>
     <m-loader v-if="show" />
     <m-card area="box1" title="哈哈哈哈">
       <TestComponent />
     </m-card>
-    <m-card area="box2" title="哈哈哈">
-      <TsxComponent></TsxComponent>
-    </m-card>
+    <m-card area="box2" title="哈哈哈"> </m-card>
     <m-card
       v-show="test"
       area="box3"
@@ -22,7 +21,7 @@
     >
       <m-table
         :template="[
-          '标题1|标题2|标题3',
+          '标题1|标题2*2|标题3*2',
           'key1|key2>customFormatter|key3#image',
         ]"
         :data="tableData"
@@ -35,11 +34,15 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
 import TestComponent from './test-component.vue'
-import TsxComponent from './tsx-component'
 import store from '@/store'
+
+interface TableDataProps {
+  [propName: string]: string
+}
+
 export default defineComponent({
   name: 'App',
-  components: { TestComponent, TsxComponent },
+  components: { TestComponent },
   setup() {
     const show = computed(() => store.state.showLoading)
     const test = ref(false)
@@ -72,7 +75,7 @@ export default defineComponent({
     const customFormatter = (val: string) => {
       return val + '哈哈哈'
     }
-    const tableData = ref([])
+    const tableData = ref<TableDataProps[]>([])
     return {
       test,
       tableData,
