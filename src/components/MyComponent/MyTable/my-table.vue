@@ -31,6 +31,7 @@
           <img
             v-else-if="key.indexOf('#') >= 0 && key.split('#')[1] === 'image'"
             :src="item[key.split('#')[0]]"
+            :draggable="false"
             @click.stop="handleViewImage(item[key.split('#')[0]])"
           />
           <p v-else :style="`text-align:${calcAlign[i]}`" v-html="item[key]" />

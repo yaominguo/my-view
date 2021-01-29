@@ -11,7 +11,9 @@
     <m-card area="box1" title="哈哈哈哈">
       <TestComponent />
     </m-card>
-    <m-card area="box2" title="哈哈哈"> </m-card>
+    <m-card area="box2" title="哈哈哈">
+      <m-empty></m-empty>
+    </m-card>
     <m-card
       v-show="test"
       area="box3"
@@ -35,6 +37,9 @@
 import { computed, defineComponent, ref } from 'vue'
 import TestComponent from './test-component.vue'
 import store from '@/store'
+import { ajax, api } from '@/ajax'
+import { log } from 'console'
+// import ajax from '@/ajax/axios'
 
 interface TableDataProps {
   [propName: string]: string
@@ -44,6 +49,10 @@ export default defineComponent({
   name: 'App',
   components: { TestComponent },
   setup() {
+    // ajax.get({})
+    ajax.get({ url: api.TEST_URL }).then((res) => {
+      console.log('res', res)
+    })
     const show = computed(() => store.state.showLoading)
     const test = ref(false)
     setTimeout(() => {

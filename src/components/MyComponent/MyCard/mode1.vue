@@ -1,12 +1,7 @@
 <template>
   <div class="card-wrapper">
-    <div
-      class="card-title"
-      style="background-image: url('/src/assets/images/card-mode1-header.png')"
-    >
-      <p
-        style="background-image: url('/src/assets/images/card-mode1-title.png')"
-      >
+    <div class="card-title">
+      <p>
         {{ title }}
       </p>
     </div>
@@ -37,16 +32,12 @@ export default defineComponent({
 .card-wrapper
   .card-title
     display flex
-    background-size 100% 50%
-    background-position left bottom
-    background-repeat no-repeat
+    background url('/src/assets/images/card-mode1-header.png') left bottom / 100% 60% no-repeat
     >p
       color $card-title-color
       font-size $card-title-size
       font-weight bold
-      background-size 100% 50%
-      background-position left bottom
-      background-repeat no-repeat
+      background url('/src/assets/images/card-mode1-title.png') left bottom / 100% 60% no-repeat
       padding 0 .2rem
       margin 0
   .card-content

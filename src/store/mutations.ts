@@ -1,7 +1,7 @@
 import { GlobalStateProps } from './index'
 
 export default {
-  setLoading(state: GlobalStateProps, val: boolean) {
+  SET_LOADING(state: GlobalStateProps, val: boolean): void {
     state.showLoading = val
   },
 }
