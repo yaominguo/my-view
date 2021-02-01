@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import mode1 from './mode1.vue'
 import '../main.styl'
 
@@ -21,19 +21,19 @@ export default defineComponent({
   },
   props: {
     title: {
-      type: String,
+      type: String as PropType<string>,
       required: true,
     },
     mode: {
-      type: String,
+      type: String as PropType<string>,
       default: '1',
     },
     enter: {
-      type: String,
+      type: String as PropType<string>,
       default: 'fadeInLeft',
     },
     leave: {
-      type: String,
+      type: String as PropType<string>,
       default: 'fadeOutLeft',
     },
   },

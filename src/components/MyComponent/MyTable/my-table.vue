@@ -71,7 +71,7 @@ export default defineComponent({
       default: null,
     },
     selectable: {
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
       default: false,
     },
   },

@@ -7,7 +7,7 @@
         style="width: 100%; height: 0.8rem"
         @click="handleClick"
       >
-        <m-count class="count" :value="countValue" />
+        <m-count class="count" :value="countValue" auto-play />
         <m-step
           :msg="['哈哈哈', '哈哈哈哈哈']"
           :steps="['第一步', '第二步', '第三步', '第四步']"

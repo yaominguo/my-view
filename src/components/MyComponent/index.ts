@@ -14,6 +14,8 @@ import MyTable from './MyTable/my-table.vue'
 import MyStep from './MyStep/my-step.vue'
 import MyEmpty from './MyEmpty/my-empty.vue'
 import MyLine from './MyChart/my-line.vue'
+import MyBar from './MyChart/my-bar.vue'
+import MyPie from './MyChart/my-pie.vue'
 import { withInstall } from './util'
 
 const components = [
@@ -31,6 +33,8 @@ const components = [
   MyStep,
   MyEmpty,
   MyLine,
+  MyBar,
+  MyPie,
 ]
 
 const install = (app: App): App => {
@@ -56,6 +60,8 @@ export {
   MyStep,
   MyEmpty,
   MyLine,
+  MyBar,
+  MyPie,
 }
 
 // 默认导出 —— 使用import MyComponent from './components/MyComponent'来引入所有组件

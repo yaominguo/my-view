@@ -12,7 +12,8 @@
       <TestComponent />
     </m-card>
     <m-card area="box2" title="哈哈哈">
-      <m-line :data="chartData" />
+      <!-- <m-pie :dataset="chartData" /> -->
+      <m-bar :dataset="chartData" />
     </m-card>
     <m-card
       v-show="test"
@@ -48,17 +49,7 @@ export default defineComponent({
   setup() {
     const show = computed(() => store.state.showLoading)
     const test = ref(false)
-    const chartData = ref({
-      dimensions: ['日期', 'Line1', 'Line2', 'Line3'],
-      source: [
-        { name: '周一', line1: 100, line2: 200, line3: 300 },
-        { name: '周二', line1: 110, line2: 210, line3: 320 },
-        { name: '周三', line1: 120, line2: 230, line3: 340 },
-        { name: '周四', line1: 130, line2: 240, line3: 360 },
-        { name: '周五', line1: 140, line2: 250, line3: 380 },
-        { name: '周六', line1: 150, line2: 260, line3: 390 },
-      ],
-    })
+    const chartData = ref<any>(null)
     setTimeout(() => {
       test.value = true
       tableData.value = [
@@ -83,6 +74,23 @@ export default defineComponent({
           key3: 'https://avatars2.githubusercontent.com/u/43328103?v=4',
         },
       ]
+      chartData.value = {
+        dimensions: [
+          { name: 'name', displayName: '坐标名' },
+          { name: 'data1', displayName: '数据1' },
+          { name: 'data2', displayName: '数据2' },
+          { name: 'data3', displayName: '数据3' },
+        ],
+        source: [
+          { name: '周一', data1: 100, data2: 200, data3: 300 },
+          { name: '周二', data1: 110, data2: 210, data3: 320 },
+          { name: '周三', data1: 120, data2: 230, data3: 340 },
+          { name: '周四', data1: 130, data2: 240, data3: 360 },
+          { name: '周五', data1: 140, data2: 250, data3: 380 },
+          { name: '周六', data1: 150, data2: 260, data3: 390 },
+          { name: '周日', data1: 150, data2: 260, data3: 390 },
+        ],
+      }
     }, 3000)
 
     const customFormatter = (val: string) => {

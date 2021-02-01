@@ -11,5 +11,5 @@ export const withInstall = <T>(comp: T) => {
   return comp as T & Plugin
 }
 
-export const getDate = () => moment().format('YYYY-MM-DD dddd')
-export const getTime = () => moment().format('LTS')
+export const getDate = (): string => moment().format('YYYY-MM-DD dddd')
+export const getTime = (): string => moment().format('LTS')

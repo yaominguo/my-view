@@ -13,6 +13,7 @@
 import {
   computed,
   defineComponent,
+  PropType,
   onBeforeUnmount,
   onMounted,
   ref,
@@ -25,27 +26,27 @@ export default defineComponent({
   displayName: 'm-scroll',
   props: {
     length: {
-      type: Number,
+      type: Number as PropType<number>,
       required: true,
     },
     limit: {
-      type: Number,
+      type: Number as PropType<number>,
       required: true,
     },
     duration: {
-      type: Number,
+      type: Number as PropType<number>,
       default: 4000,
     },
     speed: {
-      type: Number,
+      type: Number as PropType<number>,
       default: 50,
     },
     mode: {
-      type: [Number, String],
+      type: [Number, String] as PropType<number | string>,
       default: 1,
     },
     step: {
-      type: Number,
+      type: Number as PropType<number>,
       default: 0,
     },
   },
@@ -75,7 +76,7 @@ export default defineComponent({
 
       if (!content) return
       let height = content.offsetHeight
-      timer.value = setInterval(() => {
+      timer.value = +setInterval(() => {
         if (height <= 0) {
           height = content.offsetHeight
           return
@@ -99,7 +100,7 @@ export default defineComponent({
       const mockContent = mockContentRef.value
       if (!content) return
       const len = (content.children && content.children.length) || 0
-      timer.value = setInterval(() => {
+      timer.value = +setInterval(() => {
         if (index.value < len) {
           index.value += 1
           content.style.transition = 'transform 0.5s ease-in-out'

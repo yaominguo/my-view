@@ -17,7 +17,12 @@ import {
   LegendComponent,
   LegendComponentOption,
 } from 'echarts/components'
-import { PieChart, PieSeriesOption } from 'echarts/charts'
+import {
+  LineChart,
+  LineSeriesOption,
+  BarChart,
+  BarSeriesOption,
+} from 'echarts/charts'
 import { SVGRenderer } from 'echarts/renderers'
 echarts.use([
   DatasetComponent,
@@ -25,10 +30,12 @@ echarts.use([
   TooltipComponent,
   GridComponent,
   LegendComponent,
-  PieChart,
+  LineChart,
+  BarChart,
   SVGRenderer,
 ])
-import useChartGenerate from '@/hooks/useChartGenerate'
+
+import useChartGenerate from '@/hooks/useChartGenerate.ts'
 
 type ECOption = echarts.ComposeOption<
   | DatasetComponentOption
@@ -36,12 +43,13 @@ type ECOption = echarts.ComposeOption<
   | TooltipComponentOption
   | GridComponentOption
   | LegendComponentOption
-  | PieSeriesOption
+  | LineSeriesOption
+  | BarSeriesOption
 >
 
 export default defineComponent({
-  name: 'MyPie',
-  displayName: 'm-pie',
+  name: 'MyBar',
+  displayName: 'm-bar',
   props: {
     dataset: {
       type: Object as PropType<DatasetComponentOption>,
@@ -57,7 +65,10 @@ export default defineComponent({
       backgroundColor: 'transparent',
       tooltip: {
         confine: true,
-        trigger: 'item',
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow',
+        },
       },
       legend: {},
       grid: {
@@ -66,28 +77,31 @@ export default defineComponent({
         bottom: '1%',
         containLabel: true,
       },
+      xAxis: [
+        {
+          type: 'category',
+        },
+      ],
+      yAxis: [
+        {
+          type: 'value',
+        },
+      ],
       series: [],
-      dataset: props.dataset,
+      dataset: [],
     }
-    const defaultSeriesItem: PieSeriesOption = {
-      type: 'pie',
-      radius: ['30%', '50%'],
-      // label: {
-      //   show: false,
-      //   position: 'center',
-      // },
-      itemStyle: {
-        borderRadius: 2,
-      },
-      labelLine: {
-        show: true,
+    const defaultSeriesItem: BarSeriesOption = {
+      type: 'bar',
+      barGap: 0,
+      emphasis: {
+        focus: 'series',
       },
     }
     const { chartRef, initChart } = useChartGenerate(
       defaultOption,
       defaultSeriesItem
     )
-    onMounted(async () => {
+    onMounted(() => {
       initChart(props.dataset, props.option)
     })
     watchEffect(() => {

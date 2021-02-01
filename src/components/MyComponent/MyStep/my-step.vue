@@ -42,7 +42,7 @@ export default defineComponent({
       required: true,
     },
     current: {
-      type: [Number, String],
+      type: [Number, String] as PropType<number | string>,
       default: 0,
     },
     msg: {

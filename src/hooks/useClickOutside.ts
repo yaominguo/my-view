@@ -12,5 +12,5 @@ export default function useClickOutside(elementRef: Ref<HTMLElement | null>) {
   onUnmounted(() => {
     document.removeEventListener('click', handler)
   })
-  return [useClickOutside]
+  return { isClickOutSide }
 }

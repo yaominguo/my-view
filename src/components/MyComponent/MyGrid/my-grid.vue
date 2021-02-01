@@ -16,15 +16,15 @@ export default defineComponent({
       required: true,
     },
     columns: {
-      type: String,
+      type: String as PropType<string>,
       required: true,
     },
     rows: {
-      type: String,
+      type: String as PropType<string>,
       required: true,
     },
     gap: {
-      type: String,
+      type: String as PropType<string>,
       default: '.05rem',
     },
   },

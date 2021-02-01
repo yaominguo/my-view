@@ -3,7 +3,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import {
+  defineComponent,
+  PropType,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch,
+} from 'vue'
 import { CountUp, CountUpOptions } from 'countup.js'
 
 export default defineComponent({
@@ -11,34 +18,34 @@ export default defineComponent({
   displayName: 'm-count',
   props: {
     value: {
-      type: [Number, String],
+      type: [Number, String] as PropType<number | string>,
       default: 0,
     },
     /** 保留几位小数，默认为0 */
     decimal: {
-      type: [Number, String],
+      type: [Number, String] as PropType<number | string>,
       default: 0,
     },
     /** 数字跳动速度 默认为2 */
     speed: {
-      type: [Number, String],
+      type: [Number, String] as PropType<number | string>,
       default: 2,
     },
     /** 是否隔一段时间自动跳动 默认为false */
     autoPlay: {
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
       default: false,
     },
     /** autoPlay开启后的间隔时间设置 默认为10 */
     duration: {
-      type: [Number, String],
+      type: [Number, String] as PropType<number | string>,
       default: 10,
     },
   },
   setup(props) {
     const endValue = ref(+props.value)
     const countRef = ref<null | HTMLElement>(null)
-    const countUpInstance = ref<any>(null)
+    const countUpInstance = ref<CountUp | null>(null)
     const timer = ref<null | number>(null)
     const options: CountUpOptions = {
       decimalPlaces: +props.decimal,
@@ -57,7 +64,7 @@ export default defineComponent({
       }
       countUpInstance.value = countUp
       if (props.autoPlay) {
-        timer.value = setInterval(() => {
+        timer.value = +setInterval(() => {
           countUp.reset()
           countUp.update(endValue.value)
         }, +props.duration * 1000)
