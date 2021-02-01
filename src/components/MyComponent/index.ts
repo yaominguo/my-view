@@ -13,6 +13,7 @@ import MyForm from './MyForm/my-form.vue'
 import MyTable from './MyTable/my-table.vue'
 import MyStep from './MyStep/my-step.vue'
 import MyEmpty from './MyEmpty/my-empty.vue'
+import MyLine from './MyChart/my-line.vue'
 import { withInstall } from './util'
 
 const components = [
@@ -29,6 +30,7 @@ const components = [
   MyTable,
   MyStep,
   MyEmpty,
+  MyLine,
 ]
 
 const install = (app: App): App => {
@@ -53,6 +55,7 @@ export {
   MyTable,
   MyStep,
   MyEmpty,
+  MyLine,
 }
 
 // 默认导出 —— 使用import MyComponent from './components/MyComponent'来引入所有组件

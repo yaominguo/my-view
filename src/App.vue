@@ -12,7 +12,7 @@
       <TestComponent />
     </m-card>
     <m-card area="box2" title="哈哈哈">
-      <m-empty></m-empty>
+      <m-line :data="chartData" />
     </m-card>
     <m-card
       v-show="test"
@@ -37,9 +37,6 @@
 import { computed, defineComponent, ref } from 'vue'
 import TestComponent from './test-component.vue'
 import store from '@/store'
-import { ajax, api } from '@/ajax'
-import { log } from 'console'
-// import ajax from '@/ajax/axios'
 
 interface TableDataProps {
   [propName: string]: string
@@ -49,12 +46,19 @@ export default defineComponent({
   name: 'App',
   components: { TestComponent },
   setup() {
-    // ajax.get({})
-    ajax.get({ url: api.TEST_URL }).then((res) => {
-      console.log('res', res)
-    })
     const show = computed(() => store.state.showLoading)
     const test = ref(false)
+    const chartData = ref({
+      dimensions: ['日期', 'Line1', 'Line2', 'Line3'],
+      source: [
+        { name: '周一', line1: 100, line2: 200, line3: 300 },
+        { name: '周二', line1: 110, line2: 210, line3: 320 },
+        { name: '周三', line1: 120, line2: 230, line3: 340 },
+        { name: '周四', line1: 130, line2: 240, line3: 360 },
+        { name: '周五', line1: 140, line2: 250, line3: 380 },
+        { name: '周六', line1: 150, line2: 260, line3: 390 },
+      ],
+    })
     setTimeout(() => {
       test.value = true
       tableData.value = [
@@ -90,6 +94,7 @@ export default defineComponent({
       tableData,
       customFormatter,
       show,
+      chartData,
     }
   },
 })

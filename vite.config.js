@@ -12,6 +12,12 @@ export default defineConfig({
   //   base: './',
   // },
   optimizeDeps: {
-    include: ['moment/locale/zh-cn'],
+    include: [
+      'moment/locale/zh-cn',
+      'echarts/core',
+      'echarts/components',
+      'echarts/charts',
+      'echarts/renderers',
+    ],
   },
 })
