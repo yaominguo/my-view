@@ -51,6 +51,12 @@ export default defineComponent({
       type: Object as PropType<ECOption>,
       default: null,
     },
+    format: {
+      type: Function as PropType<
+        (dataset: DatasetComponentOption, option: ECOption) => ECOption
+      >,
+      default: null,
+    },
   },
   setup(props) {
     const defaultOption: ECOption = {
@@ -66,26 +72,22 @@ export default defineComponent({
         bottom: '1%',
         containLabel: true,
       },
-      series: [],
-      dataset: props.dataset,
     }
     const defaultSeriesItem: PieSeriesOption = {
       type: 'pie',
       radius: ['30%', '50%'],
-      // label: {
-      //   show: false,
-      //   position: 'center',
-      // },
+      label: {
+        show: false,
+        position: 'center',
+      },
       itemStyle: {
         borderRadius: 2,
-      },
-      labelLine: {
-        show: true,
       },
     }
     const { chartRef, initChart } = useChartGenerate(
       defaultOption,
-      defaultSeriesItem
+      defaultSeriesItem,
+      props.format
     )
     onMounted(async () => {
       initChart(props.dataset, props.option)

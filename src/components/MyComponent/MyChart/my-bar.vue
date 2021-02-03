@@ -59,6 +59,12 @@ export default defineComponent({
       type: Object as PropType<ECOption>,
       default: null,
     },
+    format: {
+      type: Function as PropType<
+        (dataset: DatasetComponentOption, option: ECOption) => ECOption
+      >,
+      default: null,
+    },
   },
   setup(props) {
     const defaultOption: ECOption = {
@@ -87,8 +93,6 @@ export default defineComponent({
           type: 'value',
         },
       ],
-      series: [],
-      dataset: [],
     }
     const defaultSeriesItem: BarSeriesOption = {
       type: 'bar',
@@ -99,7 +103,8 @@ export default defineComponent({
     }
     const { chartRef, initChart } = useChartGenerate(
       defaultOption,
-      defaultSeriesItem
+      defaultSeriesItem,
+      props.format
     )
     onMounted(() => {
       initChart(props.dataset, props.option)

@@ -12,6 +12,7 @@ import {
   LineSeriesOption,
   BarSeriesOption,
   PieSeriesOption,
+  RadarSeriesOption,
 } from 'echarts/charts'
 
 type ECOption = echarts.ComposeOption<
@@ -23,6 +24,7 @@ type ECOption = echarts.ComposeOption<
   | LineSeriesOption
   | BarSeriesOption
   | PieSeriesOption
+  | RadarSeriesOption
 >
 
 interface ReturnProp {
@@ -33,10 +35,33 @@ interface ReturnProp {
 export default function useChartGenerate<T extends ECOption, U>(
   defaultOption: T,
   defaultSeriesItem?: U,
-  fn?: (dataset: DatasetComponentOption, option: ECOption) => ECOption
+  fn?: (dataset: DatasetComponentOption, option: any) => ECOption
 ): ReturnProp {
   const chartRef = shallowRef<null | HTMLElement>(null)
   const myChart = shallowRef<null | echarts.ECharts>(null)
+
+  const formatRadarSeries = (options: ECOption, dataset: any) => {
+    const source = dataset && dataset.source
+    const length = (source && source.length) || 0
+    const option = JSON.parse(JSON.stringify(options))
+
+    option.series = []
+    for (let index = 0; index < length; index++) {
+      const data: number[] = []
+      Object.keys(source[index]).forEach((key) => {
+        if (key !== 'seriesName') {
+          data.push(source[index][key])
+        }
+      })
+      option.series.push(
+        Object.assign({}, defaultSeriesItem, {
+          value: data,
+          name: source[index].seriesName,
+        })
+      )
+    }
+    return option
+  }
 
   const mergeOptions = (
     dataset: DatasetComponentOption,
@@ -54,13 +79,47 @@ export default function useChartGenerate<T extends ECOption, U>(
           ).length - 1
       }
     }
-    defaultOption.series = []
-    for (let index = 0; index < length; index++) {
-      defaultSeriesItem && defaultOption.series.push(defaultSeriesItem)
+    if (!defaultOption.series || (defaultOption.series as any[]).length === 0) {
+      defaultOption.series = []
+      for (let index = 0; index < length; index++) {
+        defaultSeriesItem && defaultOption.series.push(defaultSeriesItem)
+      }
+    }
+    if ((defaultSeriesItem as any).type === 'radar') {
+      return Object.assign(
+        {},
+        formatRadarSeries(defaultOption, dataset),
+        option || {}
+      )
     }
     return Object.assign({}, defaultOption, option || {})
   }
 
+  const formatColorOption = (options: ECOption): ECOption => {
+    if (!options.color || (options.color as string[]).length === 0) {
+      return options
+    }
+    options.color = (options.color as string[]).map((color) => {
+      if (Array.isArray(color)) {
+        if (color.length < 2) {
+          console.error('Echarts color选项里的数组参数至少需要2个字符串元素！')
+          return 'black'
+        }
+        return new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: color[0],
+          },
+          {
+            offset: 1,
+            color: color[1],
+          },
+        ])
+      }
+      return color
+    })
+    return options
+  }
   const initChart = (dataset: DatasetComponentOption, option: ECOption) => {
     if (!myChart.value) return
     const options = fn ? fn(dataset, option) : mergeOptions(dataset, option)
@@ -70,7 +129,8 @@ export default function useChartGenerate<T extends ECOption, U>(
     ) {
       return
     }
-    myChart.value.setOption(options, true)
+    const resultOptions = formatColorOption(options)
+    myChart.value.setOption(resultOptions, true)
   }
 
   const handleResize = () => {

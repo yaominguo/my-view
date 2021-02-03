@@ -17,12 +17,7 @@ import {
   LegendComponent,
   LegendComponentOption,
 } from 'echarts/components'
-import {
-  LineChart,
-  LineSeriesOption,
-  BarChart,
-  BarSeriesOption,
-} from 'echarts/charts'
+import { RadarChart, RadarSeriesOption } from 'echarts/charts'
 import { SVGRenderer } from 'echarts/renderers'
 echarts.use([
   DatasetComponent,
@@ -30,8 +25,7 @@ echarts.use([
   TooltipComponent,
   GridComponent,
   LegendComponent,
-  LineChart,
-  BarChart,
+  RadarChart,
   SVGRenderer,
 ])
 import useChartGenerate from '@/hooks/useChartGenerate'
@@ -42,13 +36,12 @@ type ECOption = echarts.ComposeOption<
   | TooltipComponentOption
   | GridComponentOption
   | LegendComponentOption
-  | LineSeriesOption
-  | BarSeriesOption
+  | RadarSeriesOption
 >
 
 export default defineComponent({
-  name: 'MyLine',
-  displayName: 'm-line',
+  name: 'MyRadar',
+  displayName: 'm-radar',
   props: {
     dataset: {
       type: Object as PropType<DatasetComponentOption>,
@@ -70,7 +63,7 @@ export default defineComponent({
       backgroundColor: 'transparent',
       tooltip: {
         confine: true,
-        trigger: 'axis',
+        trigger: 'item',
       },
       legend: {},
       grid: {
@@ -79,26 +72,22 @@ export default defineComponent({
         bottom: '1%',
         containLabel: true,
       },
-      xAxis: [
-        {
-          type: 'category',
-          boundaryGap: false,
+      radar: {
+        name: {
+          textStyle: {
+            color: '#fff',
+            backgroundColor: '#999',
+            borderRadius: 3,
+            padding: [3, 5],
+          },
         },
-      ],
-      yAxis: [
-        {
-          type: 'value',
-        },
-      ],
-    }
-    const defaultSeriesItem: LineSeriesOption = {
-      type: 'line',
-      smooth: true,
-      lineStyle: {
-        width: 2,
+        indicator: {},
       },
+    }
+    const defaultSeriesItem: RadarSeriesOption = {
+      type: 'radar',
       emphasis: {
-        focus: 'series',
+        focus: 'item',
       },
     }
     const { chartRef, initChart } = useChartGenerate(
@@ -110,6 +99,13 @@ export default defineComponent({
       initChart(props.dataset, props.option)
     })
     watchEffect(() => {
+      (defaultOption as any).radar.indicator =
+        props.dataset &&
+        props.dataset.dimensions &&
+        props.dataset.dimensions.map((d) => ({
+          name: (d as any).displayName,
+          max: (d as any).max,
+        }))
       initChart(props.dataset, props.option)
     })
     return {

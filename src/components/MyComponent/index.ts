@@ -16,6 +16,7 @@ import MyEmpty from './MyEmpty/my-empty.vue'
 import MyLine from './MyChart/my-line.vue'
 import MyBar from './MyChart/my-bar.vue'
 import MyPie from './MyChart/my-pie.vue'
+import MyRadar from './MyChart/my-radar.vue'
 import { withInstall } from './util'
 
 const components = [
@@ -35,6 +36,7 @@ const components = [
   MyLine,
   MyBar,
   MyPie,
+  MyRadar,
 ]
 
 const install = (app: App): App => {
@@ -45,7 +47,6 @@ const install = (app: App): App => {
 
 // 使用import {MyGrid} from './components/MyComponent'来按需引入个别组件
 export {
-  install,
   MyMap,
   MyTitle,
   MyAnimate,
@@ -62,6 +63,7 @@ export {
   MyLine,
   MyBar,
   MyPie,
+  MyRadar,
 }
 
 // 默认导出 —— 使用import MyComponent from './components/MyComponent'来引入所有组件
