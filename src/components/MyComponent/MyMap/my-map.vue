@@ -60,8 +60,8 @@ export default defineComponent({
         rotateEnable: true,
         pitchEnable: true,
         showLabel: true,
-        zoom: 16,
-        pitch: 60,
+        zoom: 14,
+        pitch: 50,
         rotation: 45,
         viewMode: '3D', // 开启3D视图,默认为关闭
         buildingAnimation: true, // 楼块出现是否带动画

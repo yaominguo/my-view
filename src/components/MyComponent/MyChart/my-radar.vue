@@ -76,16 +76,43 @@ export default defineComponent({
         name: {
           textStyle: {
             color: '#fff',
-            backgroundColor: '#999',
+            backgroundColor: 'rgba(255,255,255,.3)',
             borderRadius: 3,
             padding: [3, 5],
           },
         },
         indicator: {},
+        splitArea: {
+          show: true,
+          areaStyle: {
+            color: [
+              'rgba(1,124,143,.9)',
+              'rgba(1,124,143,.7)',
+              'rgba(1,124,143,.5)',
+              'rgba(1,124,143,.3)',
+              'rgba(1,124,143,.1)',
+            ],
+          },
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: 'rgba(255,255,255,.3)',
+          },
+        },
+        axisLine: {
+          show: false,
+        },
+        center: ['50%', '55%'],
+        radius: '55%',
       },
     }
     const defaultSeriesItem: RadarSeriesOption = {
       type: 'radar',
+      symbol: 'none',
+      areaStyle: {
+        opacity: 0.5,
+      },
       emphasis: {
         focus: 'item',
       },

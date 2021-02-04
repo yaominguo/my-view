@@ -17,7 +17,7 @@ import {
   LegendComponent,
   LegendComponentOption,
 } from 'echarts/components'
-import { PieChart, PieSeriesOption } from 'echarts/charts'
+import { ScatterChart, ScatterSeriesOption } from 'echarts/charts'
 import { SVGRenderer } from 'echarts/renderers'
 echarts.use([
   DatasetComponent,
@@ -25,7 +25,7 @@ echarts.use([
   TooltipComponent,
   GridComponent,
   LegendComponent,
-  PieChart,
+  ScatterChart,
   SVGRenderer,
 ])
 import useChartGenerate from '@/hooks/useChartGenerate'
@@ -36,12 +36,12 @@ type ECOption = echarts.ComposeOption<
   | TooltipComponentOption
   | GridComponentOption
   | LegendComponentOption
-  | PieSeriesOption
+  | ScatterSeriesOption
 >
 
 export default defineComponent({
-  name: 'MyPie',
-  displayName: 'm-pie',
+  name: 'MyScatter',
+  displayName: 'm-scatter',
   props: {
     dataset: {
       type: Object as PropType<DatasetComponentOption>,
@@ -72,18 +72,11 @@ export default defineComponent({
         bottom: '1%',
         containLabel: true,
       },
+      xAxis: {},
+      yAxis: {},
     }
-    const defaultSeriesItem: PieSeriesOption = {
-      type: 'pie',
-      radius: ['30%', '50%'],
-      center: ['50%', '55%'],
-      label: {
-        show: false,
-        position: 'center',
-      },
-      itemStyle: {
-        borderRadius: 2,
-      },
+    const defaultSeriesItem: ScatterSeriesOption = {
+      type: 'scatter',
     }
     const { chartRef, initChart } = useChartGenerate(
       defaultOption,

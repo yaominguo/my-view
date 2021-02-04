@@ -13,6 +13,7 @@ import {
   BarSeriesOption,
   PieSeriesOption,
   RadarSeriesOption,
+  ScatterSeriesOption,
 } from 'echarts/charts'
 
 type ECOption = echarts.ComposeOption<
@@ -25,6 +26,7 @@ type ECOption = echarts.ComposeOption<
   | BarSeriesOption
   | PieSeriesOption
   | RadarSeriesOption
+  | ScatterSeriesOption
 >
 
 interface ReturnProp {
@@ -32,6 +34,12 @@ interface ReturnProp {
   initChart: (dataset: DatasetComponentOption, option: ECOption) => void
 }
 
+/**
+ * 构建图表组件公共方法
+ * @param defaultOption 默认配置
+ * @param defaultSeriesItem 默认的series项
+ * @param fn 自定义的合并配置的方法
+ */
 export default function useChartGenerate<T extends ECOption, U>(
   defaultOption: T,
   defaultSeriesItem?: U,
@@ -40,12 +48,22 @@ export default function useChartGenerate<T extends ECOption, U>(
   const chartRef = shallowRef<null | HTMLElement>(null)
   const myChart = shallowRef<null | echarts.ECharts>(null)
 
-  const formatRadarSeries = (options: ECOption, dataset: any) => {
+  /**
+   * 由于radar图的dataset支持不好，故这里根据数据集中source数组里的seriesName来重置tooltip显示的名字
+   * @param originOptions 图标配置
+   * @param dataset 数据集
+   */
+  const formatRadarSeries = (originOptions: ECOption, dataset: any) => {
     const source = dataset && dataset.source
     const length = (source && source.length) || 0
-    const option = JSON.parse(JSON.stringify(options))
+    const options = JSON.parse(JSON.stringify(originOptions))
 
-    option.series = []
+    options.series = [
+      {
+        type: 'radar',
+        data: [],
+      },
+    ]
     for (let index = 0; index < length; index++) {
       const data: number[] = []
       Object.keys(source[index]).forEach((key) => {
@@ -53,19 +71,24 @@ export default function useChartGenerate<T extends ECOption, U>(
           data.push(source[index][key])
         }
       })
-      option.series.push(
+      options.series[0].data.push(
         Object.assign({}, defaultSeriesItem, {
           value: data,
           name: source[index].seriesName,
         })
       )
     }
-    return option
+    return options
   }
 
+  /**
+   * 根据默认配置设置series，有自定义配置则覆盖默认配置
+   * @param dataset 数据集
+   * @param option 自定义图表配置
+   */
   const mergeOptions = (
     dataset: DatasetComponentOption,
-    option: ECOption
+    option?: ECOption
   ): ECOption => {
     let length = 0
     if (dataset) {
@@ -95,6 +118,10 @@ export default function useChartGenerate<T extends ECOption, U>(
     return Object.assign({}, defaultOption, option || {})
   }
 
+  /**
+   * 将图表配置中的color选项如果有数组项则转换为渐变
+   * @param options 图表配置
+   */
   const formatColorOption = (options: ECOption): ECOption => {
     if (!options.color || (options.color as string[]).length === 0) {
       return options
@@ -120,7 +147,13 @@ export default function useChartGenerate<T extends ECOption, U>(
     })
     return options
   }
-  const initChart = (dataset: DatasetComponentOption, option: ECOption) => {
+
+  /**
+   * 根据数据集和配置初始化图表
+   * @param dataset 数据集
+   * @param option 自定义图表配置
+   */
+  const initChart = (dataset: DatasetComponentOption, option?: ECOption) => {
     if (!myChart.value) return
     const options = fn ? fn(dataset, option) : mergeOptions(dataset, option)
     if (
@@ -133,6 +166,9 @@ export default function useChartGenerate<T extends ECOption, U>(
     myChart.value.setOption(resultOptions, true)
   }
 
+  /**
+   * 根据屏幕大小自动调整图表尺寸
+   */
   const handleResize = () => {
     if (!myChart.value) return
     myChart.value.resize()

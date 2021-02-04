@@ -17,7 +17,9 @@ import MyLine from './MyChart/my-line.vue'
 import MyBar from './MyChart/my-bar.vue'
 import MyPie from './MyChart/my-pie.vue'
 import MyRadar from './MyChart/my-radar.vue'
+import MyScatter from './MyChart/my-scatter.vue'
 import { withInstall } from './util'
+import 'normalize.css'
 
 const components = [
   MyMap,
@@ -37,6 +39,7 @@ const components = [
   MyBar,
   MyPie,
   MyRadar,
+  MyScatter,
 ]
 
 const install = (app: App): App => {
@@ -64,6 +67,7 @@ export {
   MyBar,
   MyPie,
   MyRadar,
+  MyScatter,
 }
 
 // 默认导出 —— 使用import MyComponent from './components/MyComponent'来引入所有组件

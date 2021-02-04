@@ -13,6 +13,7 @@
     </m-card>
     <m-card area="box2" title="哈哈哈">
       <m-radar :dataset="chartData" />
+      <!-- <m-scatter :dataset="chartData" /> -->
       <!-- <m-pie :dataset="chartData" /> -->
       <!-- <m-bar :dataset="chartData" :option="chartOption" /> -->
     </m-card>
@@ -105,12 +106,8 @@ export default defineComponent({
             data2: 210,
             data3: 500,
           },
-          // { name: '周三', data1: 120, data2: 230, data3: 340 },
-          // { name: '周四', data1: 130, data2: 240, data3: 360 },
-          // { name: '周五', data1: 140, data2: 250, data3: 380 },
-          // { name: '周六', data1: 150, data2: 260, data3: 390 },
-          // { name: '周日', data1: 150, data2: 260, data3: 390 },
         ],
+
         // dimensions: [
         //   { name: 'name', displayName: '坐标名' },
         //   { name: 'data1', displayName: '数据1' },
@@ -126,6 +123,40 @@ export default defineComponent({
         //   { name: '周六', data1: 150, data2: 260, data3: 390 },
         //   { name: '周日', data1: 150, data2: 260, data3: 390 },
         // ],
+
+        // dimensions: [
+        //   { name: 'data1', displayName: '数据1' },
+        //   { name: 'data2', displayName: '' },
+        //   { name: 'data3', displayName: '数据2' },
+        //   { name: 'data4', displayName: '' },
+        // ],
+        // source: [
+        //   [10.0, 8.04],
+        //   [8.07, 6.95],
+        //   [13.0, 7.58],
+        //   [9.05, 8.81],
+        //   [11.0, 8.33],
+        //   [14.0, 7.66],
+        //   [13.4, 6.81],
+        //   [10.0, 6.33],
+        //   [14.0, 8.96],
+        //   [12.5, 6.82],
+        //   [9.15, 7.2],
+        //   [11.5, 7.2],
+        //   [3.03, 4.23],
+        //   [12.2, 7.83],
+        //   [2.02, 4.47],
+        //   [1.05, 3.33],
+        //   [4.05, 4.96],
+        //   [6.03, 7.24],
+        //   [12.0, 6.26],
+        //   [12.0, 8.84],
+        //   [7.08, 5.82],
+        //   [5.02, 5.68],
+        // { data1: 100, data2: 200, data3: 300, data4: 100 },
+        // { data1: 200, data2: 100, data3: 300, data4: 300 },
+        // { data1: 300, data2: 300, data3: 100, data4: 200 },
+        // ],
       }
       chartOption.value = {
         color: [['skyblue', 'blue'], 'green', 'gold'],
@@ -134,26 +165,17 @@ export default defineComponent({
             type: 'bar',
             barGap: 0,
             stack: '总量',
-            emphasis: {
-              focus: 'series',
-            },
           },
           {
             type: 'bar',
             barGap: 0,
             stack: '总量',
-            emphasis: {
-              focus: 'series',
-            },
           },
           {
             type: 'line',
             smooth: true,
             lineStyle: {
               width: 2,
-            },
-            emphasis: {
-              focus: 'series',
             },
           },
         ],
