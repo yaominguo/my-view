@@ -1,6 +1,6 @@
 <template>
   <teleport to="body">
-    <m-animate :enter="enter" :leave="leave">
+    <MyAnimate :enter="enter" :leave="leave">
       <div
         v-if="modelValue"
         class="my-modal-mask"
@@ -45,16 +45,18 @@
           </div>
         </div>
       </div>
-    </m-animate>
+    </MyAnimate>
   </teleport>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
+import MyAnimate from '../MyAnimate/my-animate.vue'
 
 export default defineComponent({
   name: 'MyModal',
   displayName: 'm-modal',
+  components: { MyAnimate },
   props: {
     modelValue: {
       type: Boolean as PropType<boolean>,

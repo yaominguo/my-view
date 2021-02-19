@@ -1,15 +1,16 @@
 <template>
-  <m-animate :enter="enter" :leave="leave">
+  <MyAnimate :enter="enter" :leave="leave">
     <div class="my-card">
       <component :is="card" :title="title">
         <slot />
       </component>
     </div>
-  </m-animate>
+  </MyAnimate>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
+import MyAnimate from '../MyAnimate/my-animate.vue'
 import mode1 from './mode1.vue'
 import '../main.styl'
 
@@ -17,6 +18,7 @@ export default defineComponent({
   name: 'MyCard',
   displayName: 'm-card',
   components: {
+    MyAnimate,
     mode1,
   },
   props: {

@@ -38,14 +38,15 @@
         </div>
       </div>
     </div>
-    <m-modal v-model="showImgModal" title="照片预览">
+    <MyModal v-model="showImgModal" title="照片预览">
       <img v-if="showImgModal && imgSrc" style="width: 100%" :src="imgSrc" />
-    </m-modal>
+    </MyModal>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref } from 'vue'
+import MyModal from '../MyModal/my-modal.vue'
 
 interface FormatterType {
   [propName: string]: <T>(val: T) => T
@@ -57,6 +58,7 @@ interface dataType {
 export default defineComponent({
   name: 'MyTable',
   displayName: 'm-table',
+  components: { MyModal },
   props: {
     template: {
       type: Array as PropType<string[]>,

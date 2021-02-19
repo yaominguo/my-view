@@ -5,14 +5,14 @@
     columns="1fr 2fr 1fr"
     rows="0.4rem 1fr 1fr"
   >
-    <m-map />
     <m-title area="title">XXXXXXX数据平台</m-title>
     <m-loader v-if="show" />
     <m-card area="box1" title="哈哈哈哈">
       <TestComponent />
     </m-card>
     <m-card area="box2" title="哈哈哈">
-      <m-radar :dataset="chartData" />
+      <m-empty />
+      <!-- <m-radar :dataset="chartData" /> -->
       <!-- <m-scatter :dataset="chartData" /> -->
       <!-- <m-pie :dataset="chartData" /> -->
       <!-- <m-bar :dataset="chartData" :option="chartOption" /> -->

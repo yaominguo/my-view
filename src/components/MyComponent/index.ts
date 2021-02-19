@@ -18,7 +18,7 @@ import MyBar from './MyChart/my-bar.vue'
 import MyPie from './MyChart/my-pie.vue'
 import MyRadar from './MyChart/my-radar.vue'
 import MyScatter from './MyChart/my-scatter.vue'
-import { withInstall } from './util'
+// import { withInstall } from './util'
 import 'normalize.css'
 
 const components = [
@@ -44,7 +44,10 @@ const components = [
 
 const install = (app: App): App => {
   app.use(animate)
-  components.forEach((component) => app.use(withInstall(component)))
+  // components.forEach((component) => app.use(withInstall(component)))
+  components.forEach((component) =>
+    app.component(component.displayName, component)
+  )
   return app
 }
 
