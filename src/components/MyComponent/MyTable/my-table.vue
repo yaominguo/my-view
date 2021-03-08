@@ -23,18 +23,18 @@
           :key="key"
           :style="`flex:${calcWidth[i]}`"
         >
-          <p
-            v-if="key.indexOf('>') >= 0"
-            :style="`text-align:${calcAlign[i]}`"
-            v-html="transValue(item, key)"
-          />
+          <p v-if="key.indexOf('>') >= 0" :style="`text-align:${calcAlign[i]}`">
+            {{ transValue(item, key) }}
+          </p>
           <img
             v-else-if="key.indexOf('#') >= 0 && key.split('#')[1] === 'image'"
             :src="item[key.split('#')[0]]"
             :draggable="false"
             @click.stop="handleViewImage(item[key.split('#')[0]])"
           />
-          <p v-else :style="`text-align:${calcAlign[i]}`" v-html="item[key]" />
+          <p v-else :style="`text-align:${calcAlign[i]}`">
+            {{ item[key] }}
+          </p>
         </div>
       </div>
     </div>
@@ -142,17 +142,23 @@ export default defineComponent({
 .my-table
   $full()
   p
-    padding .05rem .1rem
+    padding .05rem
     margin 0
+    flex 1
+    box-sizing border-box
   .table-title
     display flex
     background $table-title-bg
     color $blue
     font-weight bold
+    box-sizing inherit
+    >div
+      box-sizing inherit
   .table-content
     >div
       display flex
       background $table-content-bg
+      box-sizing inherit
       &:nth-child(odd)
         background transparent
       &.selectable

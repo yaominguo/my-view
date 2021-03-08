@@ -84,6 +84,22 @@ module.exports = {
           name: 'm-title',
           path: './src/components/MyComponent/MyTitle/my-title.vue',
         },
+        {
+          name: 'm-progress',
+          path: './src/components/MyComponent/MyProgress/my-progress.vue',
+        },
+        {
+          name: 'm-wave-ball',
+          path: './src/components/MyComponent/MyWaveBall/my-wave-ball.vue',
+        },
+        {
+          name: 'm-sub',
+          path: './src/components/MyComponent/MySub/my-sub.vue',
+        },
+        {
+          name: 'm-drawer',
+          path: './src/components/MyComponent/MyDrawer/my-drawer.vue',
+        },
       ],
     },
   ],

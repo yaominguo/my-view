@@ -75,8 +75,9 @@ export default defineComponent({
       legend: {},
       grid: {
         left: '2%',
-        right: '4%',
+        right: '5%',
         bottom: '1%',
+        top: '20%',
         containLabel: true,
       },
       xAxis: [

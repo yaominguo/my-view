@@ -118,7 +118,7 @@ export default defineComponent({
       },
     }
     const { chartRef, initChart } = useChartGenerate(
-      defaultOption,
+      props.option ? Object.assign(defaultOption, props.option) : defaultOption,
       defaultSeriesItem,
       props.format
     )
@@ -126,7 +126,7 @@ export default defineComponent({
       initChart(props.dataset, props.option)
     })
     watchEffect(() => {
-      (defaultOption as any).radar.indicator =
+      ;(defaultOption as any).radar.indicator =
         props.dataset &&
         props.dataset.dimensions &&
         props.dataset.dimensions.map((d) => ({

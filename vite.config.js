@@ -4,23 +4,12 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
 
 export default defineConfig({
+  base: './',
   plugins: [vue(), vueJsx()],
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
+      '/@': resolve(__dirname, './src'),
     },
-  },
-  // build: {
-  //   base: './',
-  // },
-  // assetsDir: 'assets',
-  optimizeDeps: {
-    include: [
-      'moment/locale/zh-cn',
-      'echarts/core',
-      'echarts/components',
-      'echarts/charts',
-      'echarts/renderers',
-    ],
   },
 })

@@ -4,6 +4,7 @@
     class="animate__animated"
     :enter-active-class="`animate__${enter}`"
     :leave-active-class="`animate__${leave}`"
+    :style="`animation-duration: ${duration}ms`"
   >
     <slot />
   </transition>
@@ -23,6 +24,11 @@ export default defineComponent({
     leave: {
       type: String as PropType<string>,
       required: true,
+    },
+    /** 动画执行时间 */
+    duration: {
+      type: Number as PropType<number>,
+      default: 500,
     },
   },
 })

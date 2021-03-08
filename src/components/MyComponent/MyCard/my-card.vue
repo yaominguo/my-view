@@ -1,7 +1,7 @@
 <template>
   <MyAnimate :enter="enter" :leave="leave">
     <div class="my-card">
-      <component :is="card" :title="title">
+      <component :is="card" :title="title" v-bind="$attrs">
         <slot />
       </component>
     </div>

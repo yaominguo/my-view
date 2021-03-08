@@ -95,7 +95,6 @@ export default defineComponent({
     display flex
     position absolute
     left -0.05rem
-    z-index -1
     .line
       height .03rem
       background rgba(0,0,0,0.8)
@@ -107,11 +106,12 @@ export default defineComponent({
     position relative
     text-align center
     width .1rem
+    z-index 1
     .icon
       width .1rem
       height @width
       border-radius 50%
-      background url('../../../assets/images/true.png') center center / 60% 60% no-repeat
+      background url('@/assets/images/true.png') center center / 60% 60% no-repeat
       background-color $edge
     .none
       width .06rem

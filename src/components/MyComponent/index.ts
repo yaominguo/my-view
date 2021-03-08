@@ -18,6 +18,10 @@ import MyBar from './MyChart/my-bar.vue'
 import MyPie from './MyChart/my-pie.vue'
 import MyRadar from './MyChart/my-radar.vue'
 import MyScatter from './MyChart/my-scatter.vue'
+import MySub from './MySub/my-sub.vue'
+import MyWaveBall from './MyWaveBall/my-wave-ball.vue'
+import MyProgress from './MyProgress/my-progress.vue'
+import MyDrawer from './MyDrawer/my-drawer.vue'
 // import { withInstall } from './util'
 import 'normalize.css'
 
@@ -40,6 +44,10 @@ const components = [
   MyPie,
   MyRadar,
   MyScatter,
+  MySub,
+  MyWaveBall,
+  MyProgress,
+  MyDrawer,
 ]
 
 const install = (app: App): App => {
@@ -71,6 +79,10 @@ export {
   MyPie,
   MyRadar,
   MyScatter,
+  MySub,
+  MyWaveBall,
+  MyProgress,
+  MyDrawer,
 }
 
 // 默认导出 —— 使用import MyComponent from './components/MyComponent'来引入所有组件
