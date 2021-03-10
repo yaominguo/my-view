@@ -12,7 +12,7 @@
 import { computed, defineComponent, PropType } from 'vue'
 import MyAnimate from '../MyAnimate/my-animate.vue'
 import mode1 from './mode1.vue'
-import '../main.styl'
+import mode2 from './mode2.vue'
 
 export default defineComponent({
   name: 'MyCard',
@@ -20,20 +20,25 @@ export default defineComponent({
   components: {
     MyAnimate,
     mode1,
+    mode2,
   },
   props: {
+    /** 标题名 */
     title: {
       type: String as PropType<string>,
       required: true,
     },
+    /** 模式选择 默认为1 */
     mode: {
-      type: String as PropType<string>,
+      type: [String, Number] as PropType<string | number>,
       default: '1',
     },
+    /** 进入动画名 */
     enter: {
       type: String as PropType<string>,
       default: 'fadeInLeft',
     },
+    /** 离开动画名 */
     leave: {
       type: String as PropType<string>,
       default: 'fadeOutLeft',
@@ -44,6 +49,8 @@ export default defineComponent({
       switch (props.mode) {
         case '1':
           return mode1
+        case '2':
+          return mode2
         default:
           return mode1
       }

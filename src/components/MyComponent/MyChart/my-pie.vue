@@ -81,9 +81,9 @@ export default defineComponent({
         show: false,
         position: 'center',
       },
-      itemStyle: {
-        borderRadius: 2,
-      },
+      // itemStyle: {
+      //   borderRadius: 2,
+      // },
     }
     const { chartRef, initChart } = useChartGenerate(
       defaultOption,

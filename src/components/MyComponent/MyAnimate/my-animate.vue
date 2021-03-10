@@ -17,10 +17,12 @@ export default defineComponent({
   name: 'MyAnimate',
   displayName: 'm-animate',
   props: {
+    /** 进入动画 */
     enter: {
       type: String as PropType<string>,
       required: true,
     },
+    /** 离开动画 */
     leave: {
       type: String as PropType<string>,
       required: true,

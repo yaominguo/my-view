@@ -1,5 +1,5 @@
 <template>
-  <span ref="countRef" />
+  <b ref="countRef" />
 </template>
 
 <script lang="ts">
@@ -17,6 +17,7 @@ export default defineComponent({
   name: 'MyCount',
   displayName: 'm-count',
   props: {
+    /** 展示值 */
     value: {
       type: [Number, String] as PropType<number | string>,
       default: 0,
@@ -61,6 +62,7 @@ export default defineComponent({
         countUp.start()
       } else {
         console.error(`m-count error: ${countUp.error}`)
+        return
       }
       countUpInstance.value = countUp
       if (props.autoPlay) {

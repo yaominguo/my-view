@@ -1,31 +1,44 @@
 <template>
-  <div class="my-wave-ball" :style="{ width: size, height: size }">
-    <div class="before" :style="{ top: `${percent}%` }" />
-    <div class="after" :style="{ top: `${percent}%` }" />
-    <p><MyCount :value="value" /> %</p>
+  <div
+    class="my-wave-ball"
+    :style="{
+      width: size,
+      height: size,
+      borderColor: color,
+      boxShadow: `0 0 .08rem 0 ${color} inset`,
+    }"
+  >
+    <div class="before" :style="{ top: `${percent}%`, background: color }" />
+    <div class="after" :style="{ top: `${percent}%`, background: color }" />
+    <p><slot /></p>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import MyCount from '../MyCount/my-count.vue'
 
 export default defineComponent({
-  name: 'MyWaveBall',
-  displayName: 'm-wave-ball',
-  components: { MyCount },
+  name: 'MyWave',
+  displayName: 'm-wave',
   props: {
+    /** 值 */
     value: {
-      type: Number as PropType<number>,
+      type: [Number, String] as PropType<number | string>,
       default: 0,
     },
+    /** 球体宽高  默认0.4rem */
     size: {
       type: String as PropType<string>,
       default: '.4rem',
     },
+    /** 球体颜色 默认#4F953B */
+    color: {
+      type: String as PropType<string>,
+      default: '#4F953B',
+    },
   },
   setup(props) {
-    const percent = computed(() => 250 - props.value)
+    const percent = computed(() => 250 - +props.value)
     return {
       percent,
     }
@@ -40,15 +53,12 @@ export default defineComponent({
   background transparent
   border-radius 50%
   overflow hidden
-  border .02rem solid $green
+  border .02rem solid
   box-sizing content-box
-  box-shadow 0 0 .08rem 0 #6EB629 inset
   transform translateZ(0)
   $center()
   p
-    font-size .12rem
-    font-weight bold
-    z-index: 30;
+    z-index 30
   .before
   .after
     content ''
@@ -56,7 +66,6 @@ export default defineComponent({
     width 200%
     height @width
     left 50%
-    background $green
     opacity .5
     border-radius 40%
     animation rotate 10s ease infinite alternate

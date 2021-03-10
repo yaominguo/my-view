@@ -11,18 +11,22 @@ export default defineComponent({
   name: 'MyGrid',
   displayName: 'm-grid',
   props: {
+    /** 区块摆放模板 */
     template: {
       type: Array as PropType<string[]>,
       required: true,
     },
+    /** 列宽比例 */
     columns: {
       type: String as PropType<string>,
       required: true,
     },
+    /** 行高比例 */
     rows: {
       type: String as PropType<string>,
       required: true,
     },
+    /** 区块间隔 */
     gap: {
       type: String as PropType<string>,
       default: '.05rem',
@@ -31,6 +35,7 @@ export default defineComponent({
   setup(props) {
     const gridRef = ref<HTMLElement | null>(null)
     onMounted(() => {
+      if (!gridRef.value) return
       const { children } = gridRef.value as HTMLElement
       for (let i = 0; i < children.length; i++) {
         const child = children[i] as HTMLElement
@@ -68,8 +73,6 @@ export default defineComponent({
 @import '../main.styl'
 .my-grid
   $full()
-  background-size cover
-  background-position center
   position relative
   display grid
   overflow hidden

@@ -73,7 +73,7 @@ export default defineComponent({
         containLabel: true,
       },
       radar: {
-        name: {
+        axisName: {
           textStyle: {
             color: '#fff',
             backgroundColor: 'rgba(255,255,255,.3)',
@@ -126,7 +126,7 @@ export default defineComponent({
       initChart(props.dataset, props.option)
     })
     watchEffect(() => {
-      ;(defaultOption as any).radar.indicator =
+      (defaultOption as any).radar.indicator =
         props.dataset &&
         props.dataset.dimensions &&
         props.dataset.dimensions.map((d) => ({

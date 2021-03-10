@@ -12,6 +12,7 @@ export default defineComponent({
   name: 'MyEmpty',
   displayName: 'm-empty',
   props: {
+    /** 展示信息 */
     text: {
       type: String as PropType<string>,
       default: '暂无数据',

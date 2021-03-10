@@ -86,6 +86,7 @@ export default defineComponent({
         margin-left .05rem
   .card-content
     display flex
+    background $primary-bg
     flex-direction column
     justify-content space-around
     position relative

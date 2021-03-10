@@ -1,15 +1,15 @@
 <template>
   <div class="test-component">
-    <m-scroll :length="30" :limit="10" mode="2" :step="0.8">
+    <m-scroll :length="3" :limit="4" mode="2" :step="0.8">
       <div
-        v-for="i in 30"
+        v-for="i in 3"
         :key="i"
         style="width: 100%; height: 0.8rem"
         @click="handleClick"
       >
-        <m-count class="count" :value="countValue" auto-play />
+        <m-count class="count" :value="100 + i" auto-play />
         <m-step
-          :msg="['哈哈哈', '哈哈哈哈哈']"
+          :msg="['哈哈哈', `<b style='color:red;'>哈哈哈哈哈</b>`]"
           :steps="['第一步', '第二步', '第三步', '第四步']"
           current="2"
         />
@@ -40,7 +40,8 @@ export default defineComponent({
 </script>
 
 <style scoped lang="stylus">
-@import './components/MyComponent/main.styl'
+@import '../components/MyComponent/main.styl'
 .test-component
   $full()
+  color $primary-color
 </style>

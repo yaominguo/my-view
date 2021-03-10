@@ -1,6 +1,5 @@
 <template>
   <m-grid
-    class="grid-aaa"
     :template="['title title title', 'box1 . box3', 'box2 . box3']"
     columns="1fr 2fr 1fr"
     rows="0.4rem 1fr 1fr"

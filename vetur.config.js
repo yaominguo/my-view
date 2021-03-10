@@ -89,8 +89,8 @@ module.exports = {
           path: './src/components/MyComponent/MyProgress/my-progress.vue',
         },
         {
-          name: 'm-wave-ball',
-          path: './src/components/MyComponent/MyWaveBall/my-wave-ball.vue',
+          name: 'm-wave',
+          path: './src/components/MyComponent/MyWave/my-wave.vue',
         },
         {
           name: 'm-sub',

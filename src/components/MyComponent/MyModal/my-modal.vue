@@ -58,37 +58,44 @@ export default defineComponent({
   displayName: 'm-modal',
   components: { MyAnimate },
   props: {
+    /** 值 */
     modelValue: {
       type: Boolean as PropType<boolean>,
       default: false,
     },
+    /** 进入动画 */
     enter: {
       type: String as PropType<string>,
       default: 'fadeInDown',
     },
+    /** 离开动画 */
     leave: {
       type: String as PropType<string>,
       default: 'fadeOutUp',
     },
+    /** 标题 */
     title: {
       type: String as PropType<string>,
       default: '',
     },
+    /** 宽度 */
     width: {
       type: String as PropType<string>,
       default: '32%',
     },
+    /** 偏移 */
     offset: {
       type: String as PropType<string>,
       default: '0',
     },
+    /** 点击蒙层是否允许关闭 */
     maskClosable: {
       type: Boolean as PropType<boolean>,
       default: true,
     },
   },
   emits: ['update:modelValue', 'close'],
-  setup(props, context) {
+  setup(_, context) {
     const closeModal = () => {
       context.emit('update:modelValue', false)
       context.emit('close')

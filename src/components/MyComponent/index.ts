@@ -19,7 +19,7 @@ import MyPie from './MyChart/my-pie.vue'
 import MyRadar from './MyChart/my-radar.vue'
 import MyScatter from './MyChart/my-scatter.vue'
 import MySub from './MySub/my-sub.vue'
-import MyWaveBall from './MyWaveBall/my-wave-ball.vue'
+import MyWave from './MyWave/my-wave.vue'
 import MyProgress from './MyProgress/my-progress.vue'
 import MyDrawer from './MyDrawer/my-drawer.vue'
 // import { withInstall } from './util'
@@ -45,7 +45,7 @@ const components = [
   MyRadar,
   MyScatter,
   MySub,
-  MyWaveBall,
+  MyWave,
   MyProgress,
   MyDrawer,
 ]
@@ -80,7 +80,7 @@ export {
   MyRadar,
   MyScatter,
   MySub,
-  MyWaveBall,
+  MyWave,
   MyProgress,
   MyDrawer,
 }

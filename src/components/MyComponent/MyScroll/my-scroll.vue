@@ -2,9 +2,9 @@
   <div class="my-scroll" @mouseenter.prevent="stop" @mouseleave.prevent="start">
     <div ref="contentRef">
       <slot />
-    </div>
-    <div v-if="isNeedMockContent" ref="mockContentRef">
-      <slot />
+      <template v-if="isNeedMockContent">
+        <slot />
+      </template>
     </div>
   </div>
 </template>
@@ -25,40 +25,53 @@ export default defineComponent({
   name: 'MyScroll',
   displayName: 'm-scroll',
   props: {
-    length: {
-      type: Number as PropType<number>,
-      required: true,
-    },
-    limit: {
-      type: Number as PropType<number>,
-      required: true,
-    },
-    duration: {
-      type: Number as PropType<number>,
-      default: 4000,
-    },
-    speed: {
-      type: Number as PropType<number>,
-      default: 50,
-    },
+    /** 模式 */
     mode: {
       type: [Number, String] as PropType<number | string>,
       default: 1,
     },
+    /** 数据长度 */
+    length: {
+      type: Number as PropType<number>,
+      required: true,
+    },
+    /** 小于此长度则不轮播 */
+    limit: {
+      type: Number as PropType<number>,
+      required: true,
+    },
+    /** mode1的轮播速度 */
+    speed: {
+      type: Number as PropType<number>,
+      default: 50,
+    },
+    /** mode2的每个元素高度 */
     step: {
       type: Number as PropType<number>,
       default: 0,
     },
+    /** mode2的轮播间隔 */
+    duration: {
+      type: Number as PropType<number>,
+      default: 4000,
+    },
   },
   setup(props) {
     const contentRef = ref<null | HTMLElement>(null)
-    const mockContentRef = ref<null | HTMLElement>(null)
     const timer = ref<null | number>(null)
     const index = ref(0)
     const isNeedMockContent = computed(
       () => props.length <= 100 && props.length >= props.limit
     )
     const start = () => {
+      if (!props.length) {
+        console.error('MyScroll 需要length参数！')
+        return
+      }
+      if (!props.limit) {
+        console.error('MyScroll 需要limit参数！')
+        return
+      }
       if (props.length < props.limit) return
       if (+props.mode === 2) {
         startMode2()
@@ -72,23 +85,20 @@ export default defineComponent({
     }
     const startMode1 = () => {
       const content = contentRef.value
-      const mockContent = mockContentRef.value
-
       if (!content) return
-      let height = content.offsetHeight
+      let height = content.offsetHeight / 2
       timer.value = +setInterval(() => {
         if (height <= 0) {
           height = content.offsetHeight
           return
         }
+
         if (index.value < height) {
           index.value += 1
         } else {
           index.value = 0
         }
         content.style.transform = `translateY(${-index.value}px)`
-        mockContent &&
-          (mockContent.style.transform = `translateY(${-index.value}px)`)
       }, props.speed)
     }
     const startMode2 = () => {
@@ -97,25 +107,17 @@ export default defineComponent({
         return
       }
       const content = contentRef.value
-      const mockContent = mockContentRef.value
       if (!content) return
-      const len = (content.children && content.children.length) || 0
+      const len = ((content.children && content.children.length) || 0) / 2
       timer.value = +setInterval(() => {
         if (index.value < len) {
           index.value += 1
           content.style.transition = 'transform 0.5s ease-in-out'
-          mockContent &&
-            (mockContent.style.transition = 'transform 0.5s ease-in-out')
         } else {
           index.value = 0
           content.style.transition = 'none'
-          mockContent && (mockContent.style.transition = 'none')
         }
         content.style.transform = `translateY(${-props.step * index.value}rem)`
-        mockContent &&
-          (mockContent.style.transform = `translateY(${
-            -props.step * index.value
-          }rem)`)
       }, props.duration)
     }
     onMounted(() => {
@@ -130,9 +132,7 @@ export default defineComponent({
         stop()
         index.value = 0
         const content = contentRef.value
-        const mockContent = mockContentRef.value
         content && (content.style.transform = 'translateY(0)')
-        mockContent && (mockContent.style.transform = 'translateY(0)')
         await nextTick()
         start()
       }
@@ -142,7 +142,6 @@ export default defineComponent({
       start,
       stop,
       contentRef,
-      mockContentRef,
       timer,
     }
   },

@@ -1,18 +1,26 @@
 <template>
   <div class="my-title">
-    <img src="/src/assets/images/title-bg.png" class="bg" />
+    <img :src="bgImg" class="bg" />
     <div class="date">{{ date }} {{ time }}</div>
     <h1><slot /></h1>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, ref } from 'vue'
+import { defineComponent, onBeforeUnmount, PropType, ref } from 'vue'
 import { getDate, getTime } from '../util'
+import bgImg from '@/assets/images/title-bg.png'
 
 export default defineComponent({
   name: 'MyTitle',
   displayName: 'm-title',
+  props: {
+    /** 背景图片 默认为title-bg.png */
+    bgImg: {
+      type: String as PropType<string>,
+      default: bgImg,
+    },
+  },
   setup() {
     const date = ref(getDate())
     const time = ref('')

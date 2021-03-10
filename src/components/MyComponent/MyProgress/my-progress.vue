@@ -28,18 +28,22 @@ export default defineComponent({
   displayName: 'm-progress',
   components: { MonitorCount },
   props: {
+    /** 进度条颜色 如为数组则渐变 */
     color: {
       type: [String, Array] as PropType<string | string[]>,
       default: () => ['#0094FF', '#1EFBFF'],
     },
+    /** 进度百分值 */
     value: {
       type: Number as PropType<number>,
       default: 0,
     },
+    /** 附加信息 */
     msg: {
       type: Object as PropType<ProgressProps>,
       default: null,
     },
+    /** 进度条高度 */
     height: {
       type: Number as PropType<number>,
       default: 0.07,
