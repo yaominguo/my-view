@@ -22,6 +22,7 @@ import MySub from './MySub/my-sub.vue'
 import MyWave from './MyWave/my-wave.vue'
 import MyProgress from './MyProgress/my-progress.vue'
 import MyDrawer from './MyDrawer/my-drawer.vue'
+import * as ChartTypes from './MyChart/types'
 // import { withInstall } from './util'
 import 'normalize.css'
 
@@ -84,6 +85,9 @@ export {
   MyProgress,
   MyDrawer,
 }
+
+// 图表组件的类型参数
+export { ChartTypes }
 
 // 默认导出 —— 使用import MyComponent from './components/MyComponent'来引入所有组件
 export default { install }

@@ -9,11 +9,11 @@
       <TestComponent />
     </m-card>
     <m-card area="box2" title="哈哈哈">
-      <m-empty />
-      <m-radar :dataset="chartData" />
+      <!-- <m-empty /> -->
+      <!-- <m-radar :dataset="chartData" /> -->
       <!-- <m-scatter :dataset="chartData" /> -->
       <!-- <m-pie :dataset="chartData" /> -->
-      <!-- <m-bar :dataset="chartData" :option="chartOption" /> -->
+      <m-bar :dataset="chartData" :option="chartOption" />
     </m-card>
     <m-card
       v-show="test"
@@ -37,6 +37,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import TestComponent from './test-component.vue'
+import { ChartTypes } from '@/components/MyComponent'
 
 interface TableDataProps {
   [propName: string]: string
@@ -47,8 +48,8 @@ export default defineComponent({
   components: { TestComponent },
   setup() {
     const test = ref(false)
-    const chartData = ref<any>(null)
-    const chartOption = ref<any>(null)
+    const chartData = ref<ChartTypes.DatasetComponentOption | null>(null)
+    const chartOption = ref<ChartTypes.BarOption | null>(null)
     setTimeout(() => {
       test.value = true
       tableData.value = [
@@ -74,51 +75,50 @@ export default defineComponent({
         },
       ]
       chartData.value = {
-        dimensions: [
-          { name: 'data0', displayName: '数据0', max: 500 },
-          { name: 'data1', displayName: '数据1', max: 500 },
-          { name: 'data2', displayName: '数据2', max: 500 },
-          { name: 'data3', displayName: '数据3', max: 500 },
-        ],
-        source: [
-          {
-            seriesName: '周一',
-            data0: 150,
-            data1: 200,
-            data2: 200,
-            data3: 300,
-          },
-          {
-            seriesName: '周二',
-            data0: 150,
-            data1: 110,
-            data2: 210,
-            data3: 320,
-          },
-          {
-            seriesName: '周三',
-            data0: 150,
-            data1: 110,
-            data2: 210,
-            data3: 500,
-          },
-        ],
-
         // dimensions: [
-        //   { name: 'name', displayName: '坐标名' },
-        //   { name: 'data1', displayName: '数据1' },
-        //   { name: 'data2', displayName: '数据2' },
-        //   { name: 'data3', displayName: '数据3' },
+        //   { name: 'data0', displayName: '数据0', max: 500 },
+        //   { name: 'data1', displayName: '数据1', max: 500 },
+        //   { name: 'data2', displayName: '数据2', max: 500 },
+        //   { name: 'data3', displayName: '数据3', max: 500 },
         // ],
         // source: [
-        //   { name: '周一', data1: 100, data2: 200, data3: 300 },
-        //   { name: '周二', data1: 110, data2: 210, data3: 320 },
-        //   { name: '周三', data1: 120, data2: 230, data3: 340 },
-        //   { name: '周四', data1: 130, data2: 240, data3: 360 },
-        //   { name: '周五', data1: 140, data2: 250, data3: 380 },
-        //   { name: '周六', data1: 150, data2: 260, data3: 390 },
-        //   { name: '周日', data1: 150, data2: 260, data3: 390 },
+        //   {
+        //     seriesName: '周一',
+        //     data0: 150,
+        //     data1: 200,
+        //     data2: 200,
+        //     data3: 300,
+        //   },
+        //   {
+        //     seriesName: '周二',
+        //     data0: 150,
+        //     data1: 110,
+        //     data2: 210,
+        //     data3: 320,
+        //   },
+        //   {
+        //     seriesName: '周三',
+        //     data0: 150,
+        //     data1: 110,
+        //     data2: 210,
+        //     data3: 500,
+        //   },
         // ],
+        dimensions: [
+          { name: 'name', displayName: '坐标名' },
+          { name: 'data1', displayName: '数据1' },
+          { name: 'data2', displayName: '数据2' },
+          { name: 'data3', displayName: '数据3' },
+        ],
+        source: [
+          { name: '周一', data1: 100, data2: 200, data3: 300 },
+          { name: '周二', data1: 110, data2: 210, data3: 320 },
+          { name: '周三', data1: 120, data2: 230, data3: 340 },
+          { name: '周四', data1: 130, data2: 240, data3: 360 },
+          { name: '周五', data1: 140, data2: 250, data3: 380 },
+          { name: '周六', data1: 150, data2: 260, data3: 390 },
+          { name: '周日', data1: 150, data2: 260, data3: 390 },
+        ],
 
         // dimensions: [
         //   { name: 'data1', displayName: '数据1' },
