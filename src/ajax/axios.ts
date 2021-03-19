@@ -33,7 +33,7 @@ Axios.interceptors.response.use(
 )
 
 interface ParamsProp {
-  [propName: string]: any
+  [propName: string]: unknown
 }
 
 interface RequestOptions {

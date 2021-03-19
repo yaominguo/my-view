@@ -30,6 +30,13 @@
         :data="tableData"
         :formatter="{ customFormatter }"
       />
+      <!-- <m-form
+        :template="[
+          'key1:标题1|key2:标题2#image|key3:标题3',
+          'key4:标题4|key5:标题5|key6:标题6',
+        ]"
+        :data="formData"
+      /> -->
     </m-card>
   </m-grid>
 </template>
@@ -50,6 +57,8 @@ export default defineComponent({
     const test = ref(false)
     const chartData = ref<ChartTypes.DatasetComponentOption | null>(null)
     const chartOption = ref<ChartTypes.BarOption | null>(null)
+    const tableData = ref<TableDataProps[]>([])
+    const formData = ref({})
     setTimeout(() => {
       test.value = true
       tableData.value = [
@@ -74,6 +83,14 @@ export default defineComponent({
           key3: 'https://avatars2.githubusercontent.com/u/43328103?v=4',
         },
       ]
+      formData.value = {
+        key1: '测试1',
+        key2: 'https://avatars2.githubusercontent.com/u/43328103?v=4',
+        key3: '测试3',
+        key4: '测试4',
+        key5: '测试5',
+        key6: '测试6',
+      }
       chartData.value = {
         // dimensions: [
         //   { name: 'data0', displayName: '数据0', max: 500 },
@@ -181,10 +198,10 @@ export default defineComponent({
     const customFormatter = (val: string) => {
       return val + '哈哈哈'
     }
-    const tableData = ref<TableDataProps[]>([])
     return {
       test,
       tableData,
+      formData,
       customFormatter,
       chartData,
       chartOption,
