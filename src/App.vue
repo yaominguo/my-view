@@ -54,10 +54,10 @@ html, body
 }
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
-  background:rgba(91, 213, 255, 0.5)
+  background:rgba(91, 213, 255, 0.3)
   -webkit-box-shadow:inset006pxrgba(0,0,0,0.5);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-  background:rgba(91, 213, 255, 0.5)
+  background:rgba(91, 213, 255, 0.3)
 }
 </style>
