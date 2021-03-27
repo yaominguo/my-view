@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosInstance, AxiosPromise } from 'axios'
+import axios, { AxiosRequestConfig, AxiosPromise } from 'axios'
 import qs from 'qs'
 import api from './api'
 import store from '@/store'
@@ -22,8 +22,6 @@ Axios.interceptors.response.use(
   (response) => {
     // TODO 返回的数据status判断错误操作等……
     store.commit('SET_LOADING', false)
-    console.log('res', response.data)
-
     return response.data
   },
   (error) => {
@@ -113,17 +111,17 @@ const ajax = ({
 }
 
 export default {
-  get(args: RequestOptions): AxiosPromise<AxiosInstance> {
+  get(args: RequestOptions): AxiosPromise<any> {
     return ajax({ method: 'GET', ...args })
   },
-  post(args: RequestOptions): AxiosPromise<AxiosInstance> {
+  post(args: RequestOptions): AxiosPromise<any> {
     // args.contentType = 'application/x-www-form-urlencoded;charset=UTF-8'
     return ajax({ method: 'POST', ...args })
   },
-  put(args: RequestOptions): AxiosPromise<AxiosInstance> {
+  put(args: RequestOptions): AxiosPromise<any> {
     return ajax({ method: 'PUT', ...args })
   },
-  delete(args: RequestOptions): AxiosPromise<AxiosInstance> {
+  delete(args: RequestOptions): AxiosPromise<any> {
     return ajax({ method: 'DELETE', ...args })
   },
 }
