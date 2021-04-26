@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "start": "npm run dev",
+    "start": "node node_modules/esbuild/install.js && npm run dev",
     "build": "vuedx-typecheck . && vite build"
   },
   "dependencies": {
