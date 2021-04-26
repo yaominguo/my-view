@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vite",
     "start": "npm run dev",
-    "clean": "rimraf ./dist",
-    "build": "npm run clean && vuedx-typecheck . && vite build"
+    "build": "vuedx-typecheck . && vite build"
   },
   "dependencies": {
     "animate.css": "^4.1.1",
