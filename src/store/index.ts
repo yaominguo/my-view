@@ -6,11 +6,7 @@ import actions from './actions'
 export interface GlobalStateProps {
   showLoading: boolean
 }
-export default createStore<GlobalStateProps>({
-  state,
-  mutations,
-  actions,
-})
+/** ------------------------------------- 分隔线 --------------------------------------- */
 
 /** 去除tuple第一项 */
 type CutHead<Tuple extends unknown[]> = ((...args: Tuple) => unknown) extends (
@@ -44,3 +40,16 @@ export interface Dispatch {
     options?: DispatchOptions
   ): Promise<any>
 }
+const store = createStore<GlobalStateProps>({
+  state,
+  mutations,
+  actions,
+})
+type StoreType = typeof store
+
+/** 修改Store类型上的commit和dispatch方法类型， 使其在页面中使用store.commit等方法有约束和提示 */
+interface MyStore extends StoreType {
+  commit: Commit
+  dispatch: Dispatch
+}
+export default store as MyStore
