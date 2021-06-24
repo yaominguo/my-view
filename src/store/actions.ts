@@ -1,11 +1,12 @@
-import { CommitOptions } from 'vuex'
-import mutations from './mutations'
-interface Commit {
-  (type: keyof typeof mutations, payload?: any, options?: CommitOptions): void
+import { Commit, Dispatch } from './index'
+
+interface Method {
+  commit: Commit
+  dispatch: Dispatch
 }
 
 export default {
-  exampleAction({ commit }: { commit: Commit }): void {
+  example({ commit }: Method): void {
     // DO SOMETHING
     commit('SET_LOADING', true)
   },
