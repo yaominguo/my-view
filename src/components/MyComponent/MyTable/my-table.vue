@@ -46,7 +46,7 @@ import { computed, defineComponent, PropType, ref } from 'vue'
 import MyModal from '../MyModal/my-modal.vue'
 
 interface FormatterType {
-  [propName: string]: <T>(val: T) => T
+  [propName: string]: <T>(val: T, data?: DataType) => T
 }
 interface DataType {
   [propName: string]: string | number | string[] | number[]
@@ -132,7 +132,7 @@ export default defineComponent({
       key.match(/(\w*)[#>:]?/)
       const dataKey = RegExp.$1
       if (formatter && key.match(/>(\w*)[#:]?/)) {
-        return formatter[RegExp.$1](data[dataKey])
+        return formatter[RegExp.$1](data[dataKey], data)
       }
       return data[dataKey] || ''
     }

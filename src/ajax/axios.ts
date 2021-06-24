@@ -20,8 +20,10 @@ Axios.interceptors.request.use(
 
 Axios.interceptors.response.use(
   (response) => {
+    if (response.config.headers.__show_loading) {
+      store.commit('SET_LOADING', false)
+    }
     // TODO 返回的数据status判断错误操作等……
-    store.commit('SET_LOADING', false)
     return response.data
   },
   (error) => {
@@ -63,6 +65,7 @@ interface RequestOptions {
     | 'application/json;charset=UTF-8'
     | 'application/x-www-form-urlencoded;charset=UTF-8'
   showLoading?: boolean
+  headers?: { [key: string]: string }
 }
 
 /**
@@ -72,6 +75,7 @@ interface RequestOptions {
  * @param {Object} params [请求参数]
  * @param {String} contentType [请求头，默认为'application/json;charset=UTF-8']
  * @param {Boolean} showLoading [是否显示请求时的loading图，默认为true]
+ * @param {Object} headers [自定义请求头]
  */
 const ajax = ({
   method = 'GET',
@@ -79,6 +83,7 @@ const ajax = ({
   params = {},
   contentType = 'application/json;charset=UTF-8',
   showLoading = true,
+  headers = {},
 }: RequestOptions) => {
   if (!url || typeof url != 'string') {
     throw new Error('接口URL不正确')
@@ -93,6 +98,8 @@ const ajax = ({
       'Access-Control-Allow-Headers':
         'Authorization,Origin, X-Requested-With, Content-Type, Accept',
       'Access-Control-Allow-Methods': '*',
+      __show_loading: showLoading,
+      ...headers,
     },
   }
   if (method === 'GET') {
