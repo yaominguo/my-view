@@ -40,16 +40,16 @@ export interface Dispatch {
     options?: DispatchOptions
   ): Promise<any>
 }
+
+/** 修改Store类型上的commit和dispatch方法类型， 使其在页面中使用store.commit等方法有约束和提示 */
 const store = createStore<GlobalStateProps>({
   state,
   mutations,
   actions,
 })
-type StoreType = typeof store
-
-/** 修改Store类型上的commit和dispatch方法类型， 使其在页面中使用store.commit等方法有约束和提示 */
-interface MyStore extends StoreType {
+type MyStore = Omit<typeof store, 'commit' | 'dispatch'> & {
   commit: Commit
   dispatch: Dispatch
 }
+
 export default store as MyStore
