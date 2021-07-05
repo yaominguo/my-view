@@ -5,8 +5,8 @@
 <script lang="ts">
 import { defineComponent, PropType, onMounted, watchEffect } from 'vue'
 import { use } from 'echarts/core'
-import { LineChart, BarChart } from 'echarts/charts'
-use([LineChart, BarChart])
+import { LineChart, BarChart, PictorialBarChart } from 'echarts/charts'
+use([LineChart, BarChart, PictorialBarChart])
 import useChartGenerate from './useChartGenerate'
 import { BarOption, DatasetComponentOption } from './types'
 
