@@ -7,6 +7,7 @@
 import { computed, defineComponent } from 'vue'
 import Main from './view/main.vue'
 import store from '@/store'
+// import TsxComponentExample from './tsx-component-example'
 
 export default defineComponent({
   name: 'App',
