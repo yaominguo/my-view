@@ -87,10 +87,10 @@ export default defineComponent({
       context.emit('select', i)
       curDetail.value = caseList.value[i]
       store.commit('SET_LOADING', true)
-      setTimeout(() => {
-        store.commit('SET_LOADING', false)
-        showDetail.value = true
-      }, 2000)
+      store.commit('SET_LOADING', false)
+      showDetail.value = true
+      // setTimeout(() => {
+      // }, 2000)
     }
     return {
       steps,

@@ -30,7 +30,7 @@ export default defineComponent({
   src url(./assets/font/pangmenzhengdao.ttf)
 
 html, body
-  background rgba(0,0,0,0.5)
+  background #000
   font-family DIN, Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale

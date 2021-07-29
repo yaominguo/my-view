@@ -7,14 +7,14 @@
         class="col"
         :style="{ flex: calcWidth(col) }"
       >
-        <p :style="{ width: labelWidth, textAlign: calcAlign(col) }">
+        <p :style="`width: ${labelWidth}; text-align: ${calcAlign(col)}`">
           {{ getLabel(col) }}
         </p>
         <img
-          v-if="isImage(col)"
-          :src="data[isImage(col)]"
+          v-if="getImage(col).isImg"
+          :src="getImage(col).src"
           :draggable="false"
-          @click.stop="handleViewImage(data[isImage(col)])"
+          @click.stop="handleViewImage(getImage(col).src)"
         />
         <p v-else class="content">
           {{ formatData(col) }}
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import MyModal from '../MyModal/my-modal.vue'
 
 interface FormatterType {
@@ -65,6 +65,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const datasource = computed(() => props.data)
     const calcWidth = (key: string): number => {
       if (!key) return 1
       if (key.match(/\*(\d*)[#>:]?/)) {
@@ -85,17 +86,20 @@ export default defineComponent({
       imgSrc.value = src
       showImgModal.value = true
     }
-    /** 是图片则返回图片的key，否则返回false */
-    const isImage = (key: string): string | false => {
-      if (!key) return false
-      if (key.match(/#(\w*)[>:=]?/)) {
+    /** 判断并返回图片src */
+    const getImage = (key: string): { isImg: boolean; src: string } => {
+      const result = {
+        isImg: false,
+        src: '',
+      }
+      if (key && key.match(/#(\w*)[>:=]?/)) {
         if (RegExp.$1 === 'image') {
           key.match(/=?(\w*)[#>:]?/)
-          return RegExp.$1
+          result.src = datasource.value[RegExp.$1] as string
+          result.isImg = true
         }
-        return false
       }
-      return false
+      return result
     }
     const formatData = (key: string): unknown => {
       if (!key) return ''
@@ -120,7 +124,7 @@ export default defineComponent({
       calcWidth,
       getLabel,
       handleViewImage,
-      isImage,
+      getImage,
       imgSrc,
       showImgModal,
       formatData,
