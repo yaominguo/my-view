@@ -3,9 +3,8 @@ import state from './state'
 import mutations from './mutations'
 import actions from './actions'
 
-export interface GlobalStateProps {
-  showLoading: boolean
-}
+export type GlobalStateProps = typeof state
+
 /** ------------------------------------- 分隔线 --------------------------------------- */
 
 /** 去除tuple第一项 */
@@ -25,7 +24,7 @@ export interface Commit {
   <T extends keyof CommitPayload>(
     type: T,
     payload?: CommitPayload[T],
-    options?: CommitOptions
+    options?: CommitOptions,
   ): void
 }
 type ActionsType = typeof actions
@@ -37,7 +36,7 @@ export interface Dispatch {
   <T extends keyof DispatchPayload>(
     type: T,
     payload?: DispatchPayload[T],
-    options?: DispatchOptions
+    options?: DispatchOptions,
   ): Promise<any>
 }
 
