@@ -28,7 +28,7 @@ interface ReturnProp {
   chartRef: Ref<null | HTMLElement>
   initChart: (
     dataset: DatasetComponentOption,
-    option?: ECOption
+    option?: ECOption,
   ) => EChartsType | undefined
 }
 
@@ -68,13 +68,13 @@ const setResizeAble = (myChart: Ref, chartRef: Ref) => {
 const transRadarOption = (
   defaultOption: RadarOption,
   defaultSeriesItem: RadarSeriesOption,
-  dataset: DatasetComponentOption
+  dataset: DatasetComponentOption,
 ): RadarOption => {
   const source = dataset && (dataset.source as any[])
   const length = (source && source.length) || 0
   const result = Object.assign({}, defaultOption)
 
-  const seriesData = []
+  const seriesData: RadarSeriesOption[] = []
   for (let index = 0; index < length; index++) {
     const data: number[] = []
     Object.keys(source[index]).forEach((key) => {
@@ -86,7 +86,7 @@ const transRadarOption = (
       Object.assign({}, defaultSeriesItem, {
         value: data,
         name: source[index].seriesName,
-      })
+      }),
     )
   }
 
@@ -141,7 +141,7 @@ const transLinearColorOption = (options: ECOption): ECOption => {
 const defaultConfig = <T>(
   defaultOption: ECOption,
   defaultSeriesItem: T,
-  dataset: DatasetComponentOption
+  dataset: DatasetComponentOption,
 ): ECOption => {
   const result = Object.assign({}, defaultOption)
   let length = 0
@@ -194,7 +194,7 @@ const mergeOptions = <T>(defaultOption: T, customOption: T) => {
  */
 const useChartGenerate = <T>(
   defaultOption: ECOption,
-  defaultSeriesItem: T
+  defaultSeriesItem: T,
 ): ReturnProp => {
   const chartRef = shallowRef<null | HTMLElement>(null)
   const myChart = shallowRef<null | ECharts>(null)
@@ -207,7 +207,7 @@ const useChartGenerate = <T>(
    */
   const initChart = (
     dataset: DatasetComponentOption,
-    option?: ECOption
+    option?: ECOption,
   ): EChartsType | undefined => {
     if (!myChart.value) return
     const config =
@@ -215,7 +215,7 @@ const useChartGenerate = <T>(
         ? transRadarOption(
             defaultOption as RadarOption,
             defaultSeriesItem as RadarSeriesOption,
-            dataset
+            dataset,
           )
         : defaultConfig(defaultOption, defaultSeriesItem, dataset)
     mergeOptions(config, option)

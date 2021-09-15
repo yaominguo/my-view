@@ -30,7 +30,7 @@ export const toRGB = (c: string, opacity = 1): string => {
     }
     color = newColor
   }
-  const result = []
+  const result: number[] = []
   for (let i = 1; i < 7; i += 2) {
     result.push(parseInt(`0x${color.slice(i, i + 2)}`))
   }

@@ -44,7 +44,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const endValue = ref(+props.value)
+    const endValue = ref(+props.value || 0)
     const countRef = ref<null | HTMLElement>(null)
     const countUpInstance = ref<CountUp | null>(null)
     const timer = ref<null | number>(null)
@@ -56,7 +56,7 @@ export default defineComponent({
       const countUp = new CountUp(
         countRef.value as HTMLElement,
         endValue.value,
-        options
+        options,
       )
       if (!countUp.error) {
         countUp.start()
@@ -75,13 +75,13 @@ export default defineComponent({
     watch(
       () => props.value,
       (cur) => {
-        endValue.value = +cur
+        endValue.value = +cur || 0
         if (
           countUpInstance.value &&
           typeof countUpInstance.value.update === 'function'
         )
           countUpInstance.value.update(+cur)
-      }
+      },
     )
     onBeforeUnmount(() => {
       clearInterval(Number(timer.value))

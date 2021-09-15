@@ -1,4 +1,4 @@
-let BASE_URL = ''
+let BASE_URL: string = ''
 switch (process.env.NODE_ENV) {
   case 'production':
     BASE_URL = ''
