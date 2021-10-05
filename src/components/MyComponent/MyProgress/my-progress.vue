@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType, ref } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import MonitorCount from '../MyCount/my-count.vue'
 
 export interface ProgressProps {
@@ -66,12 +66,7 @@ export default defineComponent({
       }
       return { background: props.color }
     })
-    const percent = ref(0)
-    onMounted(() => {
-      setTimeout(() => {
-        percent.value = props.value > 100 ? 100 : props.value
-      }, 500)
-    })
+    const percent = computed(() => (props.value > 100 ? 100 : props.value))
     return {
       barColor,
       bgColor,

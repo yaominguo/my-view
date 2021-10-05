@@ -11,7 +11,7 @@ export default defineComponent({
   setup(props) {
     const count = ref(1)
     const list = computed(() => {
-      const result = []
+      const result: number[] = []
       for (let i = 0; i < count.value; i++) {
         result.push(i + 1)
       }
