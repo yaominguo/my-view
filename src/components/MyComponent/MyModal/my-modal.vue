@@ -13,7 +13,7 @@
       >
         <div
           class="my-modal"
-          :style="`width:${width};transform: translateX(${offset})`"
+          :style="`width:${width};height:${height};transform: translate(${offsetX},${offsetY})`"
         >
           <head>
             <p>
@@ -40,7 +40,7 @@
               class="left"
             />
           </head>
-          <div class="content">
+          <div class="content" :style="`background: ${bgColor}`">
             <slot />
           </div>
         </div>
@@ -83,10 +83,25 @@ export default defineComponent({
       type: String as PropType<string>,
       default: '32%',
     },
-    /** 偏移 */
-    offset: {
+    /** 高度 */
+    height: {
+      type: String as PropType<string>,
+      default: 'auto',
+    },
+    /** 偏移X */
+    offsetX: {
       type: String as PropType<string>,
       default: '0',
+    },
+    /** 偏移Y */
+    offsetY: {
+      type: String as PropType<string>,
+      default: '0',
+    },
+    /** 背景色 */
+    bgColor: {
+      type: String as PropType<string>,
+      default: 'initial',
     },
     /** 点击蒙层是否允许关闭 */
     maskClosable: {
@@ -169,8 +184,8 @@ export default defineComponent({
           left -0.01rem
           height 80%
     .content
-      min-height 30vh
-      max-height 80vh
+      height calc(100% - .3rem)
+      box-sizing border-box
       padding .1rem
       overflow-y auto
       overflow-x hidden

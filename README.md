@@ -1,8 +1,6 @@
-# my-view
+# My Dataview Project
 
-My Dataview Project
-
-## Use
+## Usage
 
 ```bash
 # install dependencies

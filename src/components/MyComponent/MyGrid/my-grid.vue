@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType, ref } from 'vue'
+import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'MyGrid',
@@ -34,7 +34,17 @@ export default defineComponent({
   },
   setup(props) {
     const gridRef = ref<HTMLElement | null>(null)
-    onMounted(() => {
+    watch(
+      [() => props.template, () => props.columns, () => props.rows],
+      async ([val]) => {
+        if (val && val.length > 0) {
+          await nextTick()
+          setChildrenArea()
+        }
+      },
+      { immediate: true },
+    )
+    function setChildrenArea() {
       if (!gridRef.value) return
       const { children } = gridRef.value as HTMLElement
       for (let i = 0; i < children.length; i++) {
@@ -44,7 +54,7 @@ export default defineComponent({
           child.style.gridArea = area
         }
       }
-    })
+    }
     const style = computed(() => {
       const { template, columns, rows, gap } = props
       if (!template || template.length === 0) return
